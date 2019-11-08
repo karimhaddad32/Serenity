@@ -215,7 +215,7 @@ CREATE TABLE `login_info` (
   `user_id` int(11) NOT NULL,
   `username` varchar(30) NOT NULL,
   `password` varchar(80) NOT NULL,
-  `email_address` varchar(256) NOT NULL
+  `email_address` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
