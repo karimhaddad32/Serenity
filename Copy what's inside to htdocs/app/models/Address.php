@@ -29,10 +29,11 @@ class Address extends Model{
     }
 
     public function create() {
-	    $stmt = self::$_connection->prepare("INSERT INTO Address(description, street_address, city, province, postal_code, country_id)
-                                                  VALUES (:description, :street_address, :city, :province, :postal_code, :country_id)");
+	    $stmt = self::$_connection->prepare("INSERT INTO Address(profile_id, description, street_address, city, province, postal_code, country_id)
+                                                  VALUES (:profile_id, :description, :street_address, :city, :province, :postal_code, :country_id)");
         $stmt->execute(
-            ['description' => $this->description,
+            ['profile_id' => $this->profile_id,
+             'description' => $this->description,
              'street_address' => $this->street_address,
              'city' => $this->city,
              'province' => $this->province,
