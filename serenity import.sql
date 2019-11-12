@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2019 at 01:56 PM
--- Server version: 10.4.8-MariaDB
--- PHP Version: 7.1.32
+-- Generation Time: Nov 12, 2019 at 09:46 PM
+-- Server version: 10.1.39-MariaDB
+-- PHP Version: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -41,6 +41,14 @@ CREATE TABLE `address` (
   `country_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `address`
+--
+
+INSERT INTO `address` (`address_id`, `profile_id`, `description`, `street_address`, `city`, `province`, `postal_code`, `country_id`) VALUES
+(3, 1, NULL, '123', 'Montreal', 'QC', NULL, 1),
+(5, 1, 'sdsdf', 'sdfsd', 'sdf', 'sdfsdf', 'sdfsdf', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -64,8 +72,8 @@ CREATE TABLE `chat_room` (
   `category_id` int(11) NOT NULL,
   `owner_id` int(11) NOT NULL,
   `room_title` varchar(50) NOT NULL,
-  `maximum_space` int(11) NOT NULL DEFAULT 30,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `maximum_space` int(11) NOT NULL DEFAULT '30',
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -78,7 +86,7 @@ CREATE TABLE `chat_room_member` (
   `member_id` int(11) NOT NULL,
   `chat_room_id` int(11) NOT NULL,
   `profile_id` int(11) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -92,19 +100,7 @@ CREATE TABLE `chat_room_message` (
   `chat_room_id` int(11) NOT NULL,
   `sender_id` int(11) NOT NULL,
   `message` text NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `city`
---
-
-CREATE TABLE `city` (
-  `country_id` int(11) NOT NULL,
-  `country_code` varchar(3) NOT NULL,
-  `country_name` varchar(50) NOT NULL
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -118,7 +114,7 @@ CREATE TABLE `comment` (
   `profile_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
   `comment_content` varchar(256) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -132,8 +128,27 @@ CREATE TABLE `comment_reaction` (
   `comment_id` int(11) NOT NULL,
   `profile_id` int(11) NOT NULL,
   `reaction_type_id` int(11) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `country`
+--
+
+CREATE TABLE `country` (
+  `country_id` int(11) NOT NULL,
+  `country_code` varchar(3) NOT NULL,
+  `country_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `country`
+--
+
+INSERT INTO `country` (`country_id`, `country_code`, `country_name`) VALUES
+(1, 'CA', 'Canada');
 
 -- --------------------------------------------------------
 
@@ -144,7 +159,7 @@ CREATE TABLE `comment_reaction` (
 CREATE TABLE `diary` (
   `diary_id` int(11) NOT NULL,
   `profile_id` int(11) NOT NULL,
-  `last_modified` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_in` date NOT NULL,
   `diary_title` varchar(50) NOT NULL,
   `category_id` int(11) NOT NULL
@@ -161,7 +176,7 @@ CREATE TABLE `diary_entry` (
   `diary_id` int(11) NOT NULL,
   `entry_title` varchar(30) NOT NULL,
   `entry` text NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -175,7 +190,7 @@ CREATE TABLE `direct_message` (
   `sender_id` int(11) NOT NULL,
   `receiver_id` int(11) NOT NULL,
   `message_content` text NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -188,7 +203,7 @@ CREATE TABLE `favourited_post` (
   `favourited_post_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
   `profile_id` int(11) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -201,7 +216,7 @@ CREATE TABLE `friend_link` (
   `sender_id` int(11) NOT NULL,
   `receiver_id` int(11) NOT NULL,
   `accepted` bit(1) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `relationship` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -230,7 +245,7 @@ CREATE TABLE `notification` (
   `receiver_id` int(11) NOT NULL,
   `notification_type_id` int(11) NOT NULL,
   `notification_link` int(11) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `seen` bit(1) NOT NULL,
   `opened` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -258,7 +273,7 @@ CREATE TABLE `picture` (
   `caption` varchar(50) DEFAULT NULL,
   `location` varchar(50) DEFAULT NULL,
   `path` varchar(260) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -273,7 +288,7 @@ CREATE TABLE `post` (
   `type` varchar(30) NOT NULL,
   `reference_link` varchar(256) DEFAULT NULL,
   `category_id` int(11) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `post_content` text NOT NULL,
   `picture_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -289,7 +304,7 @@ CREATE TABLE `post_reaction` (
   `post_id` int(11) NOT NULL,
   `profile_id` int(11) NOT NULL,
   `reaction_type_id` int(11) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -320,6 +335,13 @@ CREATE TABLE `profile` (
   `profile_style_id` int(11) DEFAULT NULL,
   `profile_picture` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `profile`
+--
+
+INSERT INTO `profile` (`profile_id`, `first_name`, `last_name`, `username`, `phone_number`, `gender`, `profile_style_id`, `profile_picture`) VALUES
+(1, 'First', 'Last', 'Admin', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -374,7 +396,7 @@ CREATE TABLE `re_post` (
   `post_id` int(11) NOT NULL,
   `re_poster_id` int(11) NOT NULL,
   `additional_content` varchar(256) DEFAULT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -388,7 +410,7 @@ CREATE TABLE `re_post_comment` (
   `profile_id` int(11) NOT NULL,
   `re_post_id` int(11) NOT NULL,
   `comment_content` varchar(256) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -402,7 +424,7 @@ CREATE TABLE `re_post_comment_reaction` (
   `re_post_comment_id` int(11) NOT NULL,
   `profile_id` int(11) NOT NULL,
   `reaction_type_id` int(11) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -416,7 +438,7 @@ CREATE TABLE `subscription` (
   `profile_id` int(11) NOT NULL,
   `target_type` varchar(20) NOT NULL,
   `target_id` int(11) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -430,7 +452,7 @@ CREATE TABLE `tag` (
   `tagger_id` int(11) NOT NULL,
   `tagged_id` int(11) NOT NULL,
   `comment_id` int(11) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `comment_type` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -476,12 +498,6 @@ ALTER TABLE `chat_room_message`
   ADD KEY `chat_room_chat_message_chat_id_fk` (`chat_room_id`);
 
 --
--- Indexes for table `city`
---
-ALTER TABLE `city`
-  ADD PRIMARY KEY (`country_id`);
-
---
 -- Indexes for table `comment`
 --
 ALTER TABLE `comment`
@@ -496,6 +512,12 @@ ALTER TABLE `comment_reaction`
   ADD KEY `comment_reaction_comment_comment_id_fk` (`comment_id`),
   ADD KEY `comment_reaction_profile_profile_id_fk` (`profile_id`),
   ADD KEY `comment_react_react_type_type_id_fk` (`reaction_type_id`);
+
+--
+-- Indexes for table `country`
+--
+ALTER TABLE `country`
+  ADD PRIMARY KEY (`country_id`);
 
 --
 -- Indexes for table `diary`
@@ -660,7 +682,7 @@ ALTER TABLE `tag`
 -- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
-  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -687,12 +709,6 @@ ALTER TABLE `chat_room_message`
   MODIFY `chat_room_message_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `city`
---
-ALTER TABLE `city`
-  MODIFY `country_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
@@ -703,6 +719,12 @@ ALTER TABLE `comment`
 --
 ALTER TABLE `comment_reaction`
   MODIFY `comment_reaction_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `country`
+--
+ALTER TABLE `country`
+  MODIFY `country_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `diary`
@@ -780,7 +802,7 @@ ALTER TABLE `preferred_category`
 -- AUTO_INCREMENT for table `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `profile_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `profile_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `profile_style`
@@ -838,7 +860,7 @@ ALTER TABLE `tag`
 -- Constraints for table `address`
 --
 ALTER TABLE `address`
-  ADD CONSTRAINT `address_city_country_id_fk` FOREIGN KEY (`country_id`) REFERENCES `city` (`country_id`),
+  ADD CONSTRAINT `address_city_country_id_fk` FOREIGN KEY (`country_id`) REFERENCES `country` (`country_id`),
   ADD CONSTRAINT `address_profile_profile_id_fk` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`profile_id`);
 
 --
