@@ -12,7 +12,7 @@
 			echo "<div class='alert alert-danger' role='alert'>$data[error]</div>";
 	?>
 	<h1>Log in</h1>
-	<form action="" method="post" class="form-horizontal">
+	<form action="/Login/index" method="post" class="form-horizontal">
 	<div class="form-group">
 		<label for="username">UserName:</label>
 		<input type="text" class="form-control" name="username" id="username" />

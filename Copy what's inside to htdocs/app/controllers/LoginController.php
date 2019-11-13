@@ -1,53 +1,45 @@
 <?php
 
-class _DefaultController extends Controller {
+class LoginController extends Controller {
 
 	public function index() {
-		$person = $this->model('_Person');
-		$people = $person->getAll();
-
-		$this->view('Default/allGood', $people);
-	}
-
-	public function create() {
+		
 		if (!isset($_POST['action'])) {
-			$this->view('Default/create');
+			$this->view('Login/index');
 		} else {
-			$person = $this->model('_Person');
-			$person->first_name = $_POST['first_name'];
-			$person->last_name = $_POST['last_name'];
-			$person->insert();
-			//redirecttoaction
-			header('location:/Default/index');
+			$user = $this->model('Login_Info');
+			$user->username = $_POST['username'];
+			$user = $user->find_username();
+
+			if($user != null && password_verify($_POST['password'], $user->password))
+			{
+				$_SESSION['user_id'] = $user->user_id;
+				//redirecttoaction
+				header('location:/Profile/index');
+			}else{
+	
+				return $this->view('Login/index', $data = ['error' => 'invalid username or password']);
+			}	
 		}
 	}
 
-	public function edit($person_id) {
-		$thePerson = $this->model('_Person')->find($person_id);
+	public function register() {
 		if (!isset($_POST['action'])) {
-			$this->view('Default/edit', $thePerson);
+			$this->view('Login/register');
 		} else {
-			$thePerson->first_name = $_POST['first_name'];
-			$thePerson->last_name = $_POST['last_name'];
-			$thePerson->update();
-			//redirecttoaction
-			header('location:/Default/index');
+			$user = $this->model('Login_Info');
+			$user->username = $_POST['username'];
+			$user->email_address = $_POST['email_address'];
+			$user->password = $_POST['password'];	
+
+			if($user->find_username() != null || $user->find_emailaddress() != null){
+				return $this->view('Login/register', 'account taken');
+			}else{
+				$user->insert();
+				//redirecttoaction
+				header('location:/Login/index', true);
+			}
 		}
-	}
-
-
-
-
-	public function delete($person_id) {
-		$thePerson = $this->model('_Person')->find($person_id);
-		if (!isset($_POST['action'])) {
-			$this->view('Default/delete', $thePerson);
-		} else {
-			$thePerson->delete();
-			//redirecttoaction
-			header('location:/Default/index');
-		}
-
 	}
 
 }
