@@ -51,7 +51,7 @@ class Address extends Model{
                                                     postal_code    = :postal_code,
                                                     country_id     = :country_id
 
-                                              WHERE profile_id     = :profile_id;");
+                                              WHERE profile_id     = :profile_id");
         $stmt->execute(
             ['description' => $this->description,
              'street_address' => $this->street_address,

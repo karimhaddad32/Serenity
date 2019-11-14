@@ -1,45 +1,46 @@
 <?php
-
-class _Person extends Model {
-	public $first_name;
-	public $last_name;
+class _Person extends Model 
+{
+	public $picture_id;
+	public $caption;
+    public $location;
+    public $path;
+    public $timestamp;
 
     public function __construct()
     {   
         parent::__construct();
     }
-
-	public function getAll() {
-        $stmt = self::$_connection->prepare("SELECT * FROM Person");
-        $stmt->execute();
-    	$stmt->setFetchMode(PDO::FETCH_CLASS, '_Person');
+	public function getAllPictures() 
+    {
+        $stmt = self::$_connection->prepare("SELECT * FROM Picture WHERE profile_id = :profile_id");
+        $stmt->execute(['profile_id' => $this->profile_id]);
+    	$stmt->setFetchMode(PDO::FETCH_CLASS, 'Picture');
 		return $stmt->fetchAll();
     }
-
-    public function find($person_id) {
-        $stmt = self::$_connection->prepare("SELECT * FROM Person WHERE person_id = :person_id");
-        $stmt->execute(['person_id'=>$person_id]);
-        $stmt->setFetchMode(PDO::FETCH_CLASS, '_Person');
+    public function findPicture($picture_id) 
+    {
+        $stmt = self::$_connection->prepare("SELECT * FROM Picture WHERE picture_id = :picture_id");
+        $stmt->execute(['picture_id'=>$picture_id]);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Picture');
         return $stmt->fetch();
     }
-
-    public function insert() {
-	    $stmt = self::$_connection->prepare("INSERT INTO Person(first_name, last_name) VALUES(:first_name,:last_name)");
-        $stmt->execute(['first_name'=>$this->first_name,
-         'last_name'=>$this->last_name]);
+    public function uploadPicture() 
+    {
+	    $stmt = self::$_connection->prepare("INSERT INTO Picture(caption, location, path, timestamp) VALUES (:caption, :location, :path, :timestamp)");
+        $stmt->execute(['caption'=>$this->caption,
+         'location'=>$this->location, 'path'=>$this->path, 'timestamp'=>$this->timestamp]);
     }
-
-    public function delete() {
-        $stmt = self::$_connection->prepare("DELETE FROM Person WHERE person_id = :person_id");
-        $stmt->execute(['person_id'=>$this->person_id]);
+    public function deletePicture() 
+    {
+        $stmt = self::$_connection->prepare("DELETE FROM Picture WHERE picture_id = :picture_id");
+        $stmt->execute(['picture_id'=>$this->picture_id]);
     }
-
-    public function update() {
-        $stmt = self::$_connection->prepare("UPDATE Person SET first_name = :first_name, last_name = :last_name WHERE person_id = :person_id");
-        $stmt->execute(['first_name'=>$this->first_name,
-         'last_name'=>$this->last_name, 'person_id'=>$this->person_id]);
+    public function editPicture() 
+    {
+        $stmt = self::$_connection->prepare("UPDATE Picture SET caption = :caption, location = :location WHERE picture_id = :picture_id");
+        $stmt->execute(['caption'=>$this->caption,
+         'location'=>$this->location, 'picture_id'=>$this->picture_id]);
     }
-
 }
-
 ?>
