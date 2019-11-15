@@ -1,6 +1,6 @@
 <?php
 
-class _Person extends Model 
+class Post extends Model 
 {
 	public $post_id;
 	public $profile_id;
