@@ -2,7 +2,7 @@
 
 class App
 {
-	protected $controller = '_DefaultController';
+	protected $controller = 'LoginController';
 	protected $method = 'index';
 	protected $params = [];
 	
