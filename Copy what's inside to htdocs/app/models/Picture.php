@@ -1,5 +1,5 @@
 <?php
-class _Person extends Model 
+class Picture extends Model 
 {
 	public $picture_id;
 	public $caption;
@@ -33,14 +33,20 @@ class _Person extends Model
     }
     public function deletePicture() 
     {
-        $stmt = self::$_connection->prepare("DELETE FROM Picture WHERE picture_id = :picture_id");
-        $stmt->execute(['picture_id'=>$this->picture_id]);
+        if ($profile_id = $_SESSION['user_id']) 
+        {
+            $stmt = self::$_connection->prepare("DELETE FROM Picture WHERE picture_id = :picture_id");
+            $stmt->execute(['picture_id'=>$this->picture_id]);
+        }
     }
-    public function editPicture() 
-    {
-        $stmt = self::$_connection->prepare("UPDATE Picture SET caption = :caption, location = :location WHERE picture_id = :picture_id");
-        $stmt->execute(['caption'=>$this->caption,
-         'location'=>$this->location, 'picture_id'=>$this->picture_id]);
-    }
+    // public function editPicture() 
+    // {
+    //     if ($profile_id = $_SESSION['user_id']) 
+    //     {
+    //         $stmt = self::$_connection->prepare("UPDATE Picture SET caption = :caption, location = :location WHERE picture_id = :picture_id");
+    //         $stmt->execute(['caption'=>$this->caption,
+    //         'location'=>$this->location, 'picture_id'=>$this->picture_id]);
+    //     }
+    // }
 }
 ?>
