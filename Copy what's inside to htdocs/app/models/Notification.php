@@ -1,45 +1,37 @@
 <?php
-
-class _Person extends Model {
-	public $first_name;
-	public $last_name;
+class Notification extends Model {
+	public $notification_id;
+	public $sender_id;
+    public $receiver_id;
+    public $notification_type_id;
+    public $notification_link;
+    public $timestamp;
+    public $seen;
+    public $opened;
 
     public function __construct()
     {   
         parent::__construct();
     }
-
-	public function getAll() {
-        $stmt = self::$_connection->prepare("SELECT * FROM Person");
+	public function getAllNotifications() 
+    {
+        $stmt = self::$_connection->prepare("SELECT * FROM Notification");
         $stmt->execute();
-    	$stmt->setFetchMode(PDO::FETCH_CLASS, '_Person');
+    	$stmt->setFetchMode(PDO::FETCH_CLASS, 'Notification');
 		return $stmt->fetchAll();
     }
-
-    public function find($person_id) {
-        $stmt = self::$_connection->prepare("SELECT * FROM Person WHERE person_id = :person_id");
-        $stmt->execute(['person_id'=>$person_id]);
-        $stmt->setFetchMode(PDO::FETCH_CLASS, '_Person');
-        return $stmt->fetch();
+    public function createNotification() 
+    {
+        $stmt = self::$_connection->prepare("INSERT INTO Notification(notification_id, sender_id, 
+                                                        receiver_id, notification_type_id, 
+                                                        notification_link, timestamp, seen, opened)
+                                            VALUES(:notification_id, :sender_id, :receiver_id, 
+                                                    :notification_type_id, :notification_link, 
+                                                    :timestamp, :seen, :opened)");
+        $stmt->execute(['notification_id'=>$this->notification_id, 'sender_id'=>$this->sender_id, 
+                        'receiver_id'=>$this->receiver_id, 'notification_type_id'=>$this->notification_type_id, 
+                            'notification_link'=>$this->notification_link, 'timestamp'=>$this->timestamp, 
+                            'seen'=>$this->seen, 'opened'=>$this->opened]);
     }
-
-    public function insert() {
-	    $stmt = self::$_connection->prepare("INSERT INTO Person(first_name, last_name) VALUES(:first_name,:last_name)");
-        $stmt->execute(['first_name'=>$this->first_name,
-         'last_name'=>$this->last_name]);
-    }
-
-    public function delete() {
-        $stmt = self::$_connection->prepare("DELETE FROM Person WHERE person_id = :person_id");
-        $stmt->execute(['person_id'=>$this->person_id]);
-    }
-
-    public function update() {
-        $stmt = self::$_connection->prepare("UPDATE Person SET first_name = :first_name, last_name = :last_name WHERE person_id = :person_id");
-        $stmt->execute(['first_name'=>$this->first_name,
-         'last_name'=>$this->last_name, 'person_id'=>$this->person_id]);
-    }
-
 }
-
 ?>

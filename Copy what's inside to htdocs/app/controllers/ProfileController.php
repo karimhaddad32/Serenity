@@ -1,6 +1,6 @@
 <?php
 
-class _DefaultController extends Controller {
+class ProfileController extends Controller {
 
 	public function index() {
 		$person = $this->model('_Person');
