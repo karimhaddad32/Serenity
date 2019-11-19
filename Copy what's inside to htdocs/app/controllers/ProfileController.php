@@ -1,54 +1,53 @@
 <?php
 
 class ProfileController extends Controller {
-
+	
 	public function index() {
-		$person = $this->model('_Person');
-		$people = $person->getAll();
-
-		$this->view('Default/allGood', $people);
+		$profile = $this->model('Profile');
+		$profiles = $profile->getAll();
+		return $this->view('Profile/index', $profiles);
 	}
 
-	public function create() {
-		if (!isset($_POST['action'])) {
-			$this->view('Default/create');
-		} else {
-			$person = $this->model('_Person');
-			$person->first_name = $_POST['first_name'];
-			$person->last_name = $_POST['last_name'];
-			$person->insert();
-			//redirecttoaction
-			header('location:/Default/index');
-		}
-	}
+	// public function create() {
+	// 	if (!isset($_POST['action'])) {
+	// 		$this->view('Default/create');
+	// 	} else {
+	// 		$person = $this->model('Profile');
+	// 		$person->first_name = $_POST['first_name'];
+	// 		$person->last_name = $_POST['last_name'];
+	// 		$person->insert();
+	// 		//redirecttoaction
+	// 		header('location:/Default/index');
+	// 	}
+	// }
 
-	public function edit($person_id) {
-		$thePerson = $this->model('_Person')->find($person_id);
-		if (!isset($_POST['action'])) {
-			$this->view('Default/edit', $thePerson);
-		} else {
-			$thePerson->first_name = $_POST['first_name'];
-			$thePerson->last_name = $_POST['last_name'];
-			$thePerson->update();
-			//redirecttoaction
-			header('location:/Default/index');
-		}
-	}
-
-
+	// public function edit($person_id) {
+	// 	$thePerson = $this->model('Profile')->find($person_id);
+	// 	if (!isset($_POST['action'])) {
+	// 		$this->view('Default/edit', $thePerson);
+	// 	} else {
+	// 		$thePerson->first_name = $_POST['first_name'];
+	// 		$thePerson->last_name = $_POST['last_name'];
+	// 		$thePerson->update();
+	// 		//redirecttoaction
+	// 		header('location:/Default/index');
+	// 	}
+	// }
 
 
-	public function delete($person_id) {
-		$thePerson = $this->model('_Person')->find($person_id);
-		if (!isset($_POST['action'])) {
-			$this->view('Default/delete', $thePerson);
-		} else {
-			$thePerson->delete();
-			//redirecttoaction
-			header('location:/Default/index');
-		}
 
-	}
+
+	// public function delete($person_id) {
+	// 	$thePerson = $this->model('Profile')->find($person_id);
+	// 	if (!isset($_POST['action'])) {
+	// 		$this->view('Default/delete', $thePerson);
+	// 	} else {
+	// 		$thePerson->delete();
+	// 		//redirecttoaction
+	// 		header('location:/Default/index');
+	// 	}
+
+	// }
 
 }
 

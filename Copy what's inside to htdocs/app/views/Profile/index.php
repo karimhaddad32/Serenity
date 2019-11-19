@@ -6,10 +6,10 @@
 </head>
 <body>
 <div class="container">
-	<h1>Default view</h1>
-	<?php echo $model->first_name, ' ',$model->last_name; ?>
+	<h1 style="text-align: center">Your Profile</h1>
+	<!-- <?php echo $model->first_name, ' ',$model->last_name; ?> -->
 </div>
 
-<a href ='/Default/create'>Create</a>
+<a href ='/Profile/create'>Create</a>
 </body>
 </html>
