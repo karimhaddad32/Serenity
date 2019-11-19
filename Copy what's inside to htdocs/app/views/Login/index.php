@@ -11,10 +11,10 @@
 	<?php if(isset($data['error']))
 			echo "<div class='alert alert-danger' role='alert'>$data[error]</div>";
 	?>
-	<h1>Log in</h1>
+	<h1 style="color: purple; text-align: center">Welcome to Serenity!</h1>
 	<form action="/Login/index" method="post" class="form-horizontal">
 	<div class="form-group">
-		<label for="username">UserName:</label>
+		<label for="username">Username:</label>
 		<input type="text" class="form-control" name="username" id="username" />
 	</div>
 	<div class="form-group">
@@ -24,6 +24,9 @@
 	<div class="form-group">
 		<input type="submit" name="action" value="Login" />
 	</div>
+	<!-- <div class="form-group">
+		Don't have an account? <input type="submit" name="action" value="Register" />
+	</div> -->
 	</form>
 </div>
 </body></html>
