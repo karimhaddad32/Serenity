@@ -1,8 +1,12 @@
 <?php
 
-class _Person extends Model {
-	public $first_name;
-	public $last_name;
+class Recommendation extends Model {
+	public $recommendation_id;
+	public $recommender_id;
+    public $recommended_id;
+    public $post_id;
+    public $recommendation_type;
+    public $recommendation_link;
 
     public function __construct()
     {   
@@ -10,36 +14,24 @@ class _Person extends Model {
     }
 
 	public function getAll() {
-        $stmt = self::$_connection->prepare("SELECT * FROM Person");
+        $stmt = self::$_connection->prepare("SELECT * FROM Recommendation");
         $stmt->execute();
-    	$stmt->setFetchMode(PDO::FETCH_CLASS, '_Person');
+    	$stmt->setFetchMode(PDO::FETCH_CLASS, 'Recommendation');
 		return $stmt->fetchAll();
     }
 
-    public function find($person_id) {
-        $stmt = self::$_connection->prepare("SELECT * FROM Person WHERE person_id = :person_id");
-        $stmt->execute(['person_id'=>$person_id]);
-        $stmt->setFetchMode(PDO::FETCH_CLASS, '_Person');
-        return $stmt->fetch();
-    }
 
     public function insert() {
-	    $stmt = self::$_connection->prepare("INSERT INTO Person(first_name, last_name) VALUES(:first_name,:last_name)");
-        $stmt->execute(['first_name'=>$this->first_name,
-         'last_name'=>$this->last_name]);
+	    $stmt = self::$_connection->prepare("INSERT INTO Recommendation(recommender_id, recommended_id, post_id, recommendation_type, recommendation_link) VALUES(:recommender_id,:recommended_id, :post_id,:recommendation_type,:recommendation_link)");
+
+        $stmt->execute(['recommender_id'=>$this->recommender_id,
+         'recommended_id'=>$this->recommended_id,'post_id'=>$this->post_id,'recommendation_type'=>$this->recommendation_type,'recommendation_link'=>$this->recommendation_link]);
+
     }
 
     public function delete() {
-        $stmt = self::$_connection->prepare("DELETE FROM Person WHERE person_id = :person_id");
-        $stmt->execute(['person_id'=>$this->person_id]);
+        $stmt = self::$_connection->prepare("DELETE FROM Recommendation WHERE recommendation_id = :recommendation_id AND (recommender_id = :recommender_id OR recommended_id = :recommended_id)");
+        $stmt->execute(['recommendation_id'=>$this->recommendation_id],'recommender_id'=>$this->recommender_id],'recommended_id'=>$this->recommended_id]);
     }
-
-    public function update() {
-        $stmt = self::$_connection->prepare("UPDATE Person SET first_name = :first_name, last_name = :last_name WHERE person_id = :person_id");
-        $stmt->execute(['first_name'=>$this->first_name,
-         'last_name'=>$this->last_name, 'person_id'=>$this->person_id]);
-    }
-
 }
-
 ?>
