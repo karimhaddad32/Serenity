@@ -7,6 +7,10 @@ class ProfileController extends Controller {
 		$profiles = $profile->getAll();
 		return $this->view('Profile/index', $profiles);
 	}
+	public function wall()
+	{
+		return $this->view('Profile/wall');
+	}
 
 	// public function create() {
 	// 	if (!isset($_POST['action'])) {

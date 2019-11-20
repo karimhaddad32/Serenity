@@ -16,7 +16,7 @@ class LoginController extends Controller {
 			{
 				$_SESSION['user_id'] = $user->user_id;
 				//redirecttoaction
-				header('location:/Profile/index');
+				header('location:/Profile/wall');
 			}else{
 				return $this->view('Login/index',  ['error' => 'invalid username or password']);
 			}	
