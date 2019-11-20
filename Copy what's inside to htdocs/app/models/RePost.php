@@ -1,45 +1,49 @@
 <?php
 
-class _Person extends Model {
-	public $first_name;
-	public $last_name;
-
+class Re_post extends Model {
+    public $re_post_id;
+    public $post_id;
+    public $re_poster_id;
+    public $additional_content;
+    public $timestamp;
+  
     public function __construct()
     {   
         parent::__construct();
     }
 
-	public function getAll() {
-        $stmt = self::$_connection->prepare("SELECT * FROM Person");
-        $stmt->execute();
-    	$stmt->setFetchMode(PDO::FETCH_CLASS, '_Person');
-		return $stmt->fetchAll();
+    public function getAll() {
+        $stmt = self::$_connection->prepare("SELECT * FROM Re_post WHERE re_poster_id = :re_poster_id");
+        $stmt->execute('re_poster_id'=>$re_poster_id]);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Re_post');
+        return $stmt->fetchAll();
     }
 
-    public function find($person_id) {
-        $stmt = self::$_connection->prepare("SELECT * FROM Person WHERE person_id = :person_id");
-        $stmt->execute(['person_id'=>$person_id]);
-        $stmt->setFetchMode(PDO::FETCH_CLASS, '_Person');
+    public function find() {
+        $stmt = self::$_connection->prepare("SELECT * FROM Re_post WHERE re_poster_id = :re_poster_id AND re_post_id = :re_post_id");
+        $stmt->execute(['re_poster_id'=>$re_poster_id, 're_post_id'=>$re_post_id]);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Re_post');
         return $stmt->fetch();
+
     }
 
     public function insert() {
-	    $stmt = self::$_connection->prepare("INSERT INTO Person(first_name, last_name) VALUES(:first_name,:last_name)");
-        $stmt->execute(['first_name'=>$this->first_name,
-         'last_name'=>$this->last_name]);
+        $stmt = self::$_connection->prepare("INSERT INTO Re_post(post_id, re_poster_id,additional_content ,timestamp ) VALUES(:post_id,:re_poster_id,:additional_content ,:timestamp)");
+        $stmt->execute(['post_id'=>$this->post_id,
+         're_poster_id'=>$this->re_poster_id, 'additional_content'=>$this->additional_content , 'timestamp'=>$this->timestamp ]);
     }
 
     public function delete() {
-        $stmt = self::$_connection->prepare("DELETE FROM Person WHERE person_id = :person_id");
-        $stmt->execute(['person_id'=>$this->person_id]);
+        $stmt = self::$_connection->prepare("DELETE FROM Re_post WHERE re_post_id = :re_post_id");
+        $stmt->execute(['re_post_id'=>$this->re_post_id]);
     }
 
     public function update() {
-        $stmt = self::$_connection->prepare("UPDATE Person SET first_name = :first_name, last_name = :last_name WHERE person_id = :person_id");
+        $stmt = self::$_connection->prepare("UPDATE Re_post SET additional_content = :additional_content WHERE re_post_id = :re_post_id");
         $stmt->execute(['first_name'=>$this->first_name,
-         'last_name'=>$this->last_name, 'person_id'=>$this->person_id]);
+         'additional_content'=>$this->additional_content, 
+         're_post_id'=>$this->re_post_id]);
     }
-
 }
 
 ?>
