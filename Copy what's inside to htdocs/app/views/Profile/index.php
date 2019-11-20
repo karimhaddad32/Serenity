@@ -10,6 +10,8 @@
 	<!-- <?php echo $model->first_name, ' ',$model->last_name; ?> -->
 </div>
 
-<a href ='/Profile/create'>Create</a>
+<a href ='/Profile/create'>Create</a> |
+<a href ='/Address/index'>View addresses</a> |
+<a href ='/Login/logout'>Log out</a>
 </body>
 </html>

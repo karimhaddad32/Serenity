@@ -15,6 +15,7 @@
 		<label>Postal code<input type='text' name='postal_code' /></label><br>
 		<label>Country<input type='number' name='country_id' /></label><br>
 		<input type='submit' name='action' value='Create' />
+		<a href="/address/index">Cancel</a>
 	</form>
 </div>
 </body>

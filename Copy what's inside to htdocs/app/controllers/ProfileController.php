@@ -3,6 +3,15 @@
 class ProfileController extends Controller {
 	
 	public function index() {
+		if ($_SESSION['user_id'] == null) {
+			header('location:/Login/index');
+		}
+
+		echo "<pre>";
+		var_dump($_SESSION);
+		echo "</pre>";
+		
+
 		$profile = $this->model('Profile');
 		$profiles = $profile->getAll();
 		return $this->view('Profile/index', $profiles);

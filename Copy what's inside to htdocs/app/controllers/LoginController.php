@@ -5,19 +5,23 @@ class LoginController extends Controller {
 	public function index() {
 		
 		if (!isset($_POST['action'])) {
-			$this->view('Login/index');
+			if ($_SESSION && $_SESSION['user_id'] != null) {
+				header('location:/Profile/index');
+			} else {
+				$this->view('Login/index');
+			}
 		} else {
 			$user = $this->model('Login_Info');
 			$user->username = $_POST['username'];
 			$user->email_address =  $_POST['email_address'];
 			$user = $user->find_user();
 
-			if($user != null && password_verify($_POST['password'], $user->password))
+			if ($user != null && password_verify($_POST['password'], $user->password))
 			{
 				$_SESSION['user_id'] = $user->user_id;
 				//redirecttoaction
 				header('location:/Profile/index');
-			}else{
+			} else {
 				return $this->view('Login/index',  ['error' => 'invalid username or password']);
 			}	
 		}
@@ -25,10 +29,14 @@ class LoginController extends Controller {
 
 	public function register() {
 		if (!isset($_POST['action'])) {
-			$this->view('Login/register');
+			if ($_SESSION['user_id'] != null) {
+				header('location:/Profile/index');
+			} else {
+				$this->view('Login/register');
+			}
 		} else {
 
-			if($_POST['password'] != $_POST['password_confirmation']){
+			if($_POST['password'] != $_POST['password_confirmation']) {
 				return $this->view('Login/register', ['error' => 'passwords does not match']);
 			}
 
@@ -38,9 +46,11 @@ class LoginController extends Controller {
 			$user->password = $_POST['password'];	
 		
 
-			if($user->find_user() != null){
+			if ($user->find_user() != null) {
 				return $this->view('Login/register', ['error' => 'account taken']);
-			}else{
+			}
+			else
+			{
 				$user->insert();
 
 				$user = $user->find_user();
@@ -49,10 +59,16 @@ class LoginController extends Controller {
 
 				//redirecttoaction
 			
-				header('location:/Login/index');//change
+				header('location:/Login/index');
 
 			}
 		}
+	}
+
+	public function logout() {
+		session_destroy();
+		header('location:/Login/index'); // redirect the URL to login/index which calls its own view, good
+		//return $this->view('Login/index'); // stay in login/logout URL but display the login/index view, not good
 	}
 
 	public function update_password() {
@@ -60,19 +76,14 @@ class LoginController extends Controller {
 		if (!isset($_POST['action'])) {
 			$this->view('Login/update_password');
 		} else {
-
-
-
 			if($_POST['password'] != $_POST['password_confirmation']){
 				return $this->view('Login/update_password', ['error' => 'passwords does not match']);
-			}else if(!$password_verify($_POST['password'],$user->password)){
+			} else if(!$password_verify($_POST['password'],$user->password)) {
 				return $this->view('Login/update_password', ['error' => 'wrong password']);
-			}else{
+			} else {
 				$user->password = $_POST['password'];
 				$user->update_password();
 				return $this->view('Profile/index' , ['Profile/index' ,'result' => 'Password has been updated']); //or wall
-
-
 			}
 		}
 	}
@@ -87,15 +98,15 @@ class LoginController extends Controller {
 			$newUserData->username = $user->username;
 			$newUserData->email_address = $_POST['email_address'];
 				
-			if($newUserData.find_user() != null){
+			if ($newUserData.find_user() != null) {
 				return $this->view('Login/update_password', ['error' => 'Email address already used']);
-			}else{
+			} else {
 				$user->email_address =  $_POST['email_address'];
 				$user->update_email();
 				return $this->view('Profile/index', ['result' => 'Email has been updated']);//or wall
 			}
 
-			}
+		}
 		
 	}
 

@@ -4,7 +4,7 @@ class AddressController extends Controller {
 	public function index() {
 	
 		$theAddress = $this->model('Address');
-		$theAddress->profile_id = 1;//$_SESSION['user_id'];
+		$theAddress->profile_id = $_SESSION['user_id'];
 		$theAddresses = $theAddress->getAll();
 
 		$this->view('Address/index', $theAddresses);
@@ -19,13 +19,13 @@ class AddressController extends Controller {
 		} else {
 
 			$address = $this->model('Address');
-			$address->profile_id = 1;//$_SESSION['user_id'];
+			$address->profile_id = $_SESSION['user_id'];
         	$address->description = $_POST['description'];
         	$address->street_address = $_POST['street_address'];
         	$address->city = $_POST['city'];
         	$address->province = $_POST['province'];
         	$address->postal_code = $_POST['postal_code'];
-        	$address->country_id = 1;//$_POST['country_id'];
+        	$address->country_id = $_POST['country_id']; // make dropdown please
 
 			$address->create();
 
@@ -43,7 +43,6 @@ class AddressController extends Controller {
 
 		} else {
 
-			$theAddress->profile_id = $_SESSION['user_id'];
         	$theAddress->description = $_POST['description'];
         	$theAddress->street_address = $_POST['street_address'];
         	$theAddress->city = $_POST['city'];
@@ -51,7 +50,7 @@ class AddressController extends Controller {
         	$theAddress->postal_code = $_POST['postal_code'];
         	$theAddress->country_id = $_POST['country_id'];
 
-			$thePerson->update();
+			$theAddress->update();
 
 			header('location:/Address/index');
 		}
@@ -66,12 +65,11 @@ class AddressController extends Controller {
 
 		if(!isset($_POST['action'])){
 
-			$this->view('address/delete', $address_id);
+			$this->view('address/delete', $theAddress);
 
 		} else {
 
 			$theAddress->delete();
-
 			header('location:/address/index');
 		}
 

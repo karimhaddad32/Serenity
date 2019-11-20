@@ -3,10 +3,23 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
 	<script src="/js/bootstrap.js"></script>
+		<style>
+		td, th {
+			border: 1px solid black;
+			padding: 10px;
+		}
+	</style>
 	<title>Addresses</title>
 </head>
 <body>
-<a href="/address/create">Add an address</a>
+
+	<a href="/address/create">Add an address</a> | 
+	<a href="/profile/index">Back to profile</a>
+
+	<div class="container">
+	<h1 style="text-align: center">Address List</h1>
+	<!-- <?php echo $model->first_name, ' ',$model->last_name; ?> -->
+</div>
 
 <table>
 	<tr>
@@ -22,7 +35,7 @@
 
 <?php
 
-foreach($model as $address) {
+foreach ($model as $address) {
 	echo "<tr>
 		<td>$address->address_id</td>
 		<td>$address->profile_id</td>

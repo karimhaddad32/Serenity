@@ -41,7 +41,7 @@ class Address extends Model{
              'country_id' => $this->country_id]);
     }
 
-    public function edit() {
+    public function update() {
         $stmt = self::$_connection->prepare("UPDATE Address
 
                                                 SET description    = :description,
@@ -51,7 +51,7 @@ class Address extends Model{
                                                     postal_code    = :postal_code,
                                                     country_id     = :country_id
 
-                                              WHERE profile_id     = :profile_id");
+                                              WHERE address_id     = :address_id");
         $stmt->execute(
             ['description' => $this->description,
              'street_address' => $this->street_address,
@@ -59,12 +59,12 @@ class Address extends Model{
              'province' => $this->province,
              'postal_code' => $this->postal_code,
              'country_id' => $this->country_id,
-             'profile_id' => $this->profile_id]);
+             'address_id' => $this->address_id]);
     }
 
     public function delete() {
         $stmt = self::$_connection->prepare("DELETE FROM Address WHERE address_id = :address_id");
-        $stmt->execute(['address_id'=>$address_id]);
+        $stmt->execute(['address_id'=>$this->address_id]);
     }
 }
 ?>
