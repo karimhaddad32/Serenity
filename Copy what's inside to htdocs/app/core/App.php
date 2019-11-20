@@ -8,6 +8,18 @@ class App
 	
 	public function __construct() {
 		$url = $this->parseURL();
+		if (!isset($_SESSION['user_id']) || $_SESSION['user_id'] == null) {//not logged in
+			if (!isset($url[0]) || !preg_match('/login/i', $url[0])) {
+				header('location:/Login/index');
+				return;
+			}
+		} else if (isset($_SESSION['user_id'])) {
+			if (isset($url[0]) && preg_match('/login/i', $url[0]) && !preg_match('/logout/i', $url[1])) {
+				header('location:/Profile/wall');
+				return;
+			}
+		}
+
 
 		//setting the controller
 		if (file_exists('app/controllers/' . $url[0] . 'Controller.php')) {

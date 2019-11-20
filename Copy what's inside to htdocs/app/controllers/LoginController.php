@@ -5,11 +5,7 @@ class LoginController extends Controller {
 	public function index() {
 		
 		if (!isset($_POST['action'])) {
-			if ($_SESSION && $_SESSION['user_id'] != null) {
-				header('location:/Profile/index');
-			} else {
-				$this->view('Login/index');
-			}
+			$this->view('Login/index');
 		} else {
 			$user = $this->model('Login_Info');
 			$user->username = $_POST['username'];
@@ -20,13 +16,10 @@ class LoginController extends Controller {
 			{
 				$_SESSION['user_id'] = $user->user_id;
 				//redirecttoaction
-<<<<<<< HEAD
-				header('location:/Profile/index');
-			} else {
-=======
 				header('location:/Profile/wall');
-			}else{
->>>>>>> 0d75164e03c8787ddec098586c28bfdff72b40c1
+			} 
+			else
+			{
 				return $this->view('Login/index',  ['error' => 'invalid username or password']);
 			}	
 		}
@@ -34,11 +27,7 @@ class LoginController extends Controller {
 
 	public function register() {
 		if (!isset($_POST['action'])) {
-			if ($_SESSION['user_id'] != null) {
-				header('location:/Profile/index');
-			} else {
-				$this->view('Login/register');
-			}
+			$this->view('Login/register');
 		} else {
 
 			if($_POST['password'] != $_POST['password_confirmation']) {

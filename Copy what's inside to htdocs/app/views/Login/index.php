@@ -25,7 +25,7 @@
 		<input type="submit" name="action" value="Login" />
 	</div>
 	
-	Don't have an account? <a href= 'Login/register'>Register</a>
+	Don't have an account? <a href= '/Login/register'>Register</a>
 	</form>
 </div>
 </body></html>
