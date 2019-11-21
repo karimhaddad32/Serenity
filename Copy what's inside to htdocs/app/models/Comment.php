@@ -1,8 +1,11 @@
 <?php
 
-class _Person extends Model {
-	public $first_name;
-	public $last_name;
+class Comment extends Model {
+    public $comment_id;
+    public $profile_id;
+    public $post_id;
+    public $comment_content;
+    public $timestamp;
 
     public function __construct()
     {   
@@ -10,36 +13,36 @@ class _Person extends Model {
     }
 
 	public function getAll() {
-        $stmt = self::$_connection->prepare("SELECT * FROM Person");
+        $stmt = self::$_connection->prepare("SELECT * FROM Comment");
         $stmt->execute();
-    	$stmt->setFetchMode(PDO::FETCH_CLASS, '_Person');
+    	$stmt->setFetchMode(PDO::FETCH_CLASS, 'Comment');
 		return $stmt->fetchAll();
     }
 
-    public function find($person_id) {
-        $stmt = self::$_connection->prepare("SELECT * FROM Person WHERE person_id = :person_id");
-        $stmt->execute(['person_id'=>$person_id]);
-        $stmt->setFetchMode(PDO::FETCH_CLASS, '_Person');
+    public function find($comment_id) {
+        $stmt = self::$_connection->prepare("SELECT * FROM Person WHERE comment_id = :comment_id");
+        $stmt->execute(['comment_id'=>$comment_id]);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Comment');
         return $stmt->fetch();
     }
 
     public function insert() {
-	    $stmt = self::$_connection->prepare("INSERT INTO Person(first_name, last_name) VALUES(:first_name,:last_name)");
-        $stmt->execute(['first_name'=>$this->first_name,
-         'last_name'=>$this->last_name]);
+	    $stmt = self::$_connection->prepare("INSERT INTO Comment(profile_id, post_id, comment_content, timestamp)
+                                                  VALUES (:profile_id, :post_id, :comment_content, :timestamp)");
+        $stmt->execute(['profile_id'=>$this->profile_id, 'post_id'=>$this->post_id,
+                        'comment_content'=>$this->comment_content, 'timestamp'=>$this->timestamp]);
     }
 
     public function delete() {
-        $stmt = self::$_connection->prepare("DELETE FROM Person WHERE person_id = :person_id");
-        $stmt->execute(['person_id'=>$this->person_id]);
+        $stmt = self::$_connection->prepare("DELETE FROM Comment WHERE comment_id = :comment_id");
+        $stmt->execute(['comment_id'=>$this->comment_id]);
     }
 
     public function update() {
-        $stmt = self::$_connection->prepare("UPDATE Person SET first_name = :first_name, last_name = :last_name WHERE person_id = :person_id");
-        $stmt->execute(['first_name'=>$this->first_name,
-         'last_name'=>$this->last_name, 'person_id'=>$this->person_id]);
+        $stmt = self::$_connection->prepare("UPDATE Comment SET comment_content = :comment_content
+                                              WHERE comment_id = :comment_id");
+        $stmt->execute(['comment_content'=>$this->comment_content]);
     }
-
 }
 
 ?>

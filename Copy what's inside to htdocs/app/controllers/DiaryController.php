@@ -1,55 +1,71 @@
 <?php
 
-class _DefaultController extends Controller {
+class DiaryController extends Controller {
 
 	public function index() {
-		$person = $this->model('_Person');
-		$people = $person->getAll();
+		$diary = $this->model('Diary');
+		$diary->profile_id = $_SESSION['user_id'];
+		$diaries = $diary->getAll();
 
-		$this->view('Default/allGood', $people);
+		$this->view('diary/index', $diaries);
 	}
 
 	public function create() {
 		if (!isset($_POST['action'])) {
-			$this->view('Default/create');
+			$this->view('diary/create');
 		} else {
-			$person = $this->model('_Person');
-			$person->first_name = $_POST['first_name'];
-			$person->last_name = $_POST['last_name'];
-			$person->insert();
-			//redirecttoaction
-			header('location:/Default/index');
+			$newDiary = $this->model('Diary');
+			$newDiary->profile_id = $_SESSION['user_id'];
+			$newDiary->last_modified = 0;
+			$newDiary->created_in = 0;
+			$newDiary->diary_title = $_POST['diary_title'];
+			$newDiary->category_id = $_POST['category_id'];
+			$newDiary->insert();
+			header('location:/diary/index');
 		}
 	}
 
-	public function edit($person_id) {
-		$thePerson = $this->model('_Person')->find($person_id);
+	public function edit($diary_id) {
+
+		$diary = $this->model('Diary')->find($diary_id);
+
+		if(!isset($_POST['action'])) {
+
+			$this->view('diary/edit', $diary);
+
+		} else {
+
+        	$diary->diary_title = $_POST['diary_title'];
+        	$diary->category_id = $_POST['category_id'];
+
+			$diary->update();
+
+			header('location:/diary/index');
+		}
+	}
+
+
+
+
+	public function delete($diary_id) {
+		$diary = $this->model('Diary')->find($diary_id);
 		if (!isset($_POST['action'])) {
-			$this->view('Default/edit', $thePerson);
+			$this->view('diary/delete', $diary);
 		} else {
-			$thePerson->first_name = $_POST['first_name'];
-			$thePerson->last_name = $_POST['last_name'];
-			$thePerson->update();
-			//redirecttoaction
-			header('location:/Default/index');
-		}
-	}
-
-
-
-
-	public function delete($person_id) {
-		$thePerson = $this->model('_Person')->find($person_id);
-		if (!isset($_POST['action'])) {
-			$this->view('Default/delete', $thePerson);
-		} else {
-			$thePerson->delete();
-			//redirecttoaction
-			header('location:/Default/index');
+			$diary->delete();
+			header('location:/diary/index');
 		}
 
 	}
+/*
+	public function view($diary_id) {
+		$diary = $this->model('Diary');
+		$diary->diary_id = $diary_id;
+		$diaryEntries = $diary->getAllEntries();
 
+		$this->view('diary/view/$diary_id', $diaryEntries);
+	}
+*/
 }
 
 ?>

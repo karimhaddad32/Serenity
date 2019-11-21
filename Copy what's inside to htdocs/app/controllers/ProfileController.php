@@ -7,16 +7,13 @@ class ProfileController extends Controller {
 		$profiles = $profile->getAll();
 		return $this->view('Profile/index', $profiles);
 	}
-	public function wall()
-	{
-		return $this->view('Profile/wall');
-	}
 
 	public function create() {
 		if (!isset($_POST['action'])) {
 			$this->view('Default/create');
 		} else {
 			$person = $this->model('Profile');
+			
 			$person->first_name = $_POST['first_name'];
 			$person->last_name = $_POST['last_name'];
 			$person->insert();

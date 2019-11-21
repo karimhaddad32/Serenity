@@ -1,55 +1,41 @@
 <?php
 
-class _DefaultController extends Controller {
+class CommentController extends Controller {
 
-	public function index() {
-		$person = $this->model('_Person');
-		$people = $person->getAll();
-
-		$this->view('Default/allGood', $people);
+	public function create($post_id) {
+		if (!isset($_POST['action'])) {
+			$this->view('Comment/create');
+		} else {
+			$comment = $this->model('Comment');
+			$comment->profile_id = $_SESSION['user_id'];
+			$comment->post_id = $post_id;
+			$comment->comment_content = $_POST['comment_content'];
+			$comment->timestamp = 0;
+			$comment->insert();
+			header('location:/Profile/index');
+		}
 	}
 
-	public function create() {
+	public function edit($comment_id) {
+		$comment = $this->model('Comment')->find($comment_id);
 		if (!isset($_POST['action'])) {
-			$this->view('Default/create');
+			$this->view('Comment/edit', $comment);
 		} else {
-			$person = $this->model('_Person');
-			$person->first_name = $_POST['first_name'];
-			$person->last_name = $_POST['last_name'];
-			$person->insert();
-			//redirecttoaction
+			$comment->comment_content = $_POST['comment_content'];
+			$comment->update();
 			header('location:/Default/index');
 		}
 	}
 
-	public function edit($person_id) {
-		$thePerson = $this->model('_Person')->find($person_id);
+	public function delete($comment_id) {
+		$comment = $this->model('_Person')->find($comment_id);
 		if (!isset($_POST['action'])) {
-			$this->view('Default/edit', $thePerson);
+			$this->view('Comment/delete', $comment);
 		} else {
-			$thePerson->first_name = $_POST['first_name'];
-			$thePerson->last_name = $_POST['last_name'];
-			$thePerson->update();
-			//redirecttoaction
+			$comment->delete();
 			header('location:/Default/index');
 		}
 	}
-
-
-
-
-	public function delete($person_id) {
-		$thePerson = $this->model('_Person')->find($person_id);
-		if (!isset($_POST['action'])) {
-			$this->view('Default/delete', $thePerson);
-		} else {
-			$thePerson->delete();
-			//redirecttoaction
-			header('location:/Default/index');
-		}
-
-	}
-
 }
 
 ?>
