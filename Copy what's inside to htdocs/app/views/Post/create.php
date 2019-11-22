@@ -6,10 +6,11 @@
 </head>
 <body>
 <div class="container">
-	<h1>Create your post now!</h1>
+	<h1>Create a New Post</h1>
 	<form method='post'>
-		<label>Post content:<input type='text' name='post_content' /></label><br>
-		<input type='submit' name='action' value='Post' />
+		<label>What do you want to say?<input type='text' name='post content' /></label><br>
+		<input type='submit' name='action' value='Submit Post' />
+		<a href="/post/index">Cancel</a>
 	</form>
 </div>
 </body>

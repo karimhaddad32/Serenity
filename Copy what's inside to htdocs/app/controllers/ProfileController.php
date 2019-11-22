@@ -7,7 +7,9 @@ class ProfileController extends Controller {
 		$profiles = $profile->getAll();
 		return $this->view('Profile/index', $profiles);
 	}
-
+	public function wall() {
+		return $this->view('Profile/wall');
+	}
 	public function create() {
 		if (!isset($_POST['action'])) {
 			$this->view('Default/create');
@@ -21,7 +23,6 @@ class ProfileController extends Controller {
 			header('location:/Default/index');
 		}
 	}
-
 	public function edit($person_id) {
 		$thePerson = $this->model('Profile')->find($person_id);
 		if (!isset($_POST['action'])) {
@@ -34,10 +35,6 @@ class ProfileController extends Controller {
 			header('location:/Default/index');
 		}
 	}
-
-
-
-
 	public function delete($person_id) {
 		$thePerson = $this->model('Profile')->find($person_id);
 		if (!isset($_POST['action'])) {
@@ -47,9 +44,6 @@ class ProfileController extends Controller {
 			//redirecttoaction
 			header('location:/Default/index');
 		}
-
 	}
-
 }
-
 ?>

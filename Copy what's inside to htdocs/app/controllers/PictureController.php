@@ -1,55 +1,42 @@
 <?php
 
-class _DefaultController extends Controller {
-
+class PictureController extends Controller {
 	public function index() {
-		$person = $this->model('_Person');
-		$people = $person->getAll();
-
-		$this->view('Default/allGood', $people);
+		$picture = $this->model('Picture');
+		$pictures = $picture->getAllPictures();
+		$this->view('Picture/index', $pictures);
 	}
-
 	public function create() {
 		if (!isset($_POST['action'])) {
-			$this->view('Default/create');
+			$this->view('Picture/create');
 		} else {
-			$person = $this->model('_Person');
-			$person->first_name = $_POST['first_name'];
-			$person->last_name = $_POST['last_name'];
-			$person->insert();
+			$picture = $this->model('Picture');
+			$pictures->uploadPicture();
 			//redirecttoaction
-			header('location:/Default/index');
+			header('location:/Picture/index');
 		}
 	}
-
-	public function edit($person_id) {
-		$thePerson = $this->model('_Person')->find($person_id);
+	// public function edit($person_id) {
+	// 	$thePerson = $this->model('_Person')->find($person_id);
+	// 	if (!isset($_POST['action'])) {
+	// 		$this->view('Default/edit', $thePerson);
+	// 	} else {
+	// 		$thePerson->first_name = $_POST['first_name'];
+	// 		$thePerson->last_name = $_POST['last_name'];
+	// 		$thePerson->update();
+	// 		//redirecttoaction
+	// 		header('location:/Default/index');
+	// 	}
+	// }
+	public function delete($picture_id) {
+		$thePicture = $this->model('Picture')->find($picture_id);
 		if (!isset($_POST['action'])) {
-			$this->view('Default/edit', $thePerson);
+			$this->view('Picture/delete', $thePicture);
 		} else {
-			$thePerson->first_name = $_POST['first_name'];
-			$thePerson->last_name = $_POST['last_name'];
-			$thePerson->update();
+			$thePicture->deletePicture();
 			//redirecttoaction
-			header('location:/Default/index');
+			header('location:/Picture/index');
 		}
 	}
-
-
-
-
-	public function delete($person_id) {
-		$thePerson = $this->model('_Person')->find($person_id);
-		if (!isset($_POST['action'])) {
-			$this->view('Default/delete', $thePerson);
-		} else {
-			$thePerson->delete();
-			//redirecttoaction
-			header('location:/Default/index');
-		}
-
-	}
-
 }
-
 ?>
