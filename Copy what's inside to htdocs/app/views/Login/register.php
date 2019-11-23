@@ -10,9 +10,7 @@
 
 	
 	<h1 style="color: purple; text-align: center">Register an account now!</h1>
-	<?php if(isset($model['error']))
-			echo "<div class='alert alert-danger' role='alert'>$model[error]</div>";
-	?>
+
 	<form action="/Login/register" method="post" class="form-horizontal">
 	<div class="form-group">
 		<label for="username">Username:</label>
@@ -33,6 +31,9 @@
 	<div class="form-group">
 		<input type="submit" name="action" value="Register" />
 	</div>
+	<?php if(isset($model['error']))
+			echo "<div class='alert alert-danger' role='alert'>$model[error]</div>";
+	?>
 	</form>
 </div>
 </body></html>

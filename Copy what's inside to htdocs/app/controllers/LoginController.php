@@ -9,7 +9,7 @@ class LoginController extends Controller {
 		} else {
 			$user = $this->model('Login_Info');
 			$user->username = $_POST['username'];
-			$user->email_address =  $_POST['email_address'];
+	
 			$user = $user->find_user();
 
 			if ($user != null && password_verify($_POST['password'], $user->password))
@@ -41,7 +41,7 @@ class LoginController extends Controller {
 		
 
 			if ($user->find_user() != null) {
-				return $this->view('Login/register', ['error' => 'account taken']);
+				return $this->view('Login/register', ['error' => 'account is taken']);
 			}
 			else
 			{
@@ -52,15 +52,17 @@ class LoginController extends Controller {
 				$_SESSION['user_id'] = $user->user_id;
 
 				//redirecttoaction
-			
-				header('location:/Login/index');
+				
+				header('location:/Profile/index');
 
 			}
 		}
 	}
 
 	public function logout() {
+
 		session_destroy();
+
 		header('location:/Login/index'); // redirect the URL to login/index which calls its own view, good
 		//return $this->view('Login/index'); // stay in login/logout URL but display the login/index view, not good
 	}

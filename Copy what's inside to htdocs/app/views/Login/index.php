@@ -8,9 +8,7 @@
 <body>
 <div class="container">
 
-	<?php if(isset($data['error']))
-			echo "<div class='alert alert-danger' role='alert'>$data[error]</div>";
-	?>
+	
 	<h1 style="color: purple; text-align: center">Welcome to Serenity!</h1>
 	<form action="/Login/index" method="post" class="form-horizontal">
 	<div class="form-group">
@@ -21,6 +19,9 @@
 		<label for="password">Password:</label>
 		<input type="password" class="form-control" name="password" id="password" />
 	</div>
+	<?php if(isset($model['error']))
+			echo "<div class='alert alert-danger' role='alert'>$model[error]</div>";
+	?>
 	<div class="form-group">
 		<input type="submit" name="action" value="Login" />
 	</div>
