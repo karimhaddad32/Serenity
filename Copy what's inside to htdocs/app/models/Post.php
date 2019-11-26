@@ -57,7 +57,7 @@ class Post extends Model
     {
         if ($profile_id = $_SESSION['user_id']) 
         {
-           $stmt = self::$_connection->prepare("DELETE FROM Post WHERE post_id = :post_id");
+            $stmt = self::$_connection->prepare("DELETE FROM Post WHERE post_id = :post_id");
             $stmt->execute(['post_id'=>$post_id]); 
         }
     }

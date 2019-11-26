@@ -16,15 +16,13 @@ class Direct_Message extends Model {
 		$stmt->setFetchMode(PDO::FETCH_CLASS, 'DirectMessage');
 		return $stmt->fetchAll(); 
 	}
-
 	public function getAllMessages($sender_id, $receiver_id) {
 		$stmt = self::$_connection->prepare("SELECT * FROM Direct_Message WHERE sender_id = :sender_id AND receiver_id = :receiver_id OR sender_id = :receiver_id AND receiver_id = :sender_id");
 		$stmt->execute();
 		$stmt->setFetchMode(PDO::FETCH_CLASS, 'Direct_Message');
 		return $stmt->fetchAll(); 
 	}
-
-	public function create() {
+	public function createNewMessage() {
 		$stmt = self::$_connection->prepare("INSERT INTO Direct_Message (sender_id, receiver_id, message_content, timestamp)
                                                   VALUES (:sender_id, receiver_id:, :message_content, :timestamp)");
         $stmt->execute(

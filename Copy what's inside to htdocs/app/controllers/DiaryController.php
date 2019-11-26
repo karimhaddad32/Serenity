@@ -7,7 +7,7 @@ class DiaryController extends Controller {
 		$diary->profile_id = $_SESSION['user_id'];
 		$diaries = $diary->getAll();
 
-		return $this->view('diary/index', $diaries);
+		$this->view('diary/index', $diaries);
 	}
 
 	public function create() {
@@ -57,17 +57,15 @@ class DiaryController extends Controller {
 		}
 
 	}
+/*
+	public function view($diary_id) {
+		$diary = $this->model('Diary');
+		$diary->diary_id = $diary_id;
+		$diaryEntries = $diary->getAllEntries();
 
-	public function _view($diary_id) {
-		$diary = $this->model('Diary')->find($diary_id);
-		$diary->DiaryEntries = $diary->getAllEntries();
-		var_dump($diary->getAllEntries());
-		//$diaryEntry = $this->model('Diary_Entry');
-		//$diaryEntry->diary_id = $diary_id;
-		//$diaryEntries = $diaryEntry->getAll();
-		return $this->view('diary/_view', $diary);
+		$this->view('diary/view/$diary_id', $diaryEntries);
 	}
-
+*/
 }
 
 ?>
