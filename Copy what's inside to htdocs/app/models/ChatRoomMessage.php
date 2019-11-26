@@ -1,8 +1,10 @@
 <?php
 
-class _Person extends Model {
-	public $first_name;
-	public $last_name;
+class Chat_Room_Message extends Model {
+	public $chat_room_id;
+	public $sender_id;
+    public $message;
+    public $timestamp;
 
     public function __construct()
     {   
@@ -10,34 +12,41 @@ class _Person extends Model {
     }
 
 	public function getAll() {
-        $stmt = self::$_connection->prepare("SELECT * FROM Person");
+        $stmt = self::$_connection->prepare("SELECT * FROM Chat_Room_Message");
         $stmt->execute();
-    	$stmt->setFetchMode(PDO::FETCH_CLASS, '_Person');
+    	$stmt->setFetchMode(PDO::FETCH_CLASS, 'Chat_Room_Message');
 		return $stmt->fetchAll();
     }
 
-    public function find($person_id) {
-        $stmt = self::$_connection->prepare("SELECT * FROM Person WHERE person_id = :person_id");
-        $stmt->execute(['person_id'=>$person_id]);
-        $stmt->setFetchMode(PDO::FETCH_CLASS, '_Person');
+    public function getAllChatRoomMessagesInChatRoom() {
+        $stmt = self::$_connection->prepare("SELECT * FROM Chat_Room_Message WHERE chat_room_id = :chat_room_id");
+        $stmt->execute(['chat_room_id'=>$chat_room_id]);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Chat_Room_Message');
+        return $stmt->fetchAll();
+    }
+
+    public function find($chat_room_message_id) {
+        $stmt = self::$_connection->prepare("SELECT * FROM Chat_Room_Message WHERE chat_room_message_id = :chat_room_message_id");
+        $stmt->execute(['chat_room_message_id'=>$chat_room_message_id]);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Chat_Room_Message');
         return $stmt->fetch();
     }
 
     public function insert() {
-	    $stmt = self::$_connection->prepare("INSERT INTO Person(first_name, last_name) VALUES(:first_name,:last_name)");
+	    $stmt = self::$_connection->prepare("INSERT INTO Chat_Room_Message(first_name, last_name) VALUES(:first_name,:last_name)");
         $stmt->execute(['first_name'=>$this->first_name,
          'last_name'=>$this->last_name]);
     }
 
     public function delete() {
-        $stmt = self::$_connection->prepare("DELETE FROM Person WHERE person_id = :person_id");
-        $stmt->execute(['person_id'=>$this->person_id]);
+        $stmt = self::$_connection->prepare("DELETE FROM Chat_Room_Message WHERE chat_room_message_id = :chat_room_message_id");
+        $stmt->execute(['chat_room_message_id'=>$this->chat_room_message_id]);
     }
 
     public function update() {
-        $stmt = self::$_connection->prepare("UPDATE Person SET first_name = :first_name, last_name = :last_name WHERE person_id = :person_id");
+        $stmt = self::$_connection->prepare("UPDATE Chat_Room_Message SET first_name = :first_name, last_name = :last_name WHERE chat_room_message_id = :chat_room_message_id");
         $stmt->execute(['first_name'=>$this->first_name,
-         'last_name'=>$this->last_name, 'person_id'=>$this->person_id]);
+         'last_name'=>$this->last_name, 'chat_room_message_id'=>$this->chat_room_message_id]);
     }
 
 }

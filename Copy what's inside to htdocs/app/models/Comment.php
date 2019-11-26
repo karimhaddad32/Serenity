@@ -15,12 +15,19 @@ class Comment extends Model {
 	public function getAll() {
         $stmt = self::$_connection->prepare("SELECT * FROM Comment");
         $stmt->execute();
-    	$stmt->setFetchMode(PDO::FETCH_CLASS, 'Comment');
-		return $stmt->fetchAll();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Comment');
+        return $stmt->fetchAll();
+    }
+
+    public function getPostComments() {
+        $stmt = self::$_connection->prepare("SELECT * FROM Comment WHERE post_id = :post_id");
+        $stmt->execute(['post_id'=>$this->post_id]);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Comment');
+        return $stmt->fetchAll();
     }
 
     public function find($comment_id) {
-        $stmt = self::$_connection->prepare("SELECT * FROM Person WHERE comment_id = :comment_id");
+        $stmt = self::$_connection->prepare("SELECT * FROM Comment WHERE comment_id = :comment_id");
         $stmt->execute(['comment_id'=>$comment_id]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Comment');
         return $stmt->fetch();

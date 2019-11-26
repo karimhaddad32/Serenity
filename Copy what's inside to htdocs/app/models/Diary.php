@@ -8,6 +8,8 @@ class Diary extends Model {
     public $diary_title;
     public $category_id;
 
+    public $DiaryEntries;
+
     public function __construct()
     {   
         parent::__construct();
@@ -20,14 +22,12 @@ class Diary extends Model {
 		return $stmt->fetchAll();
     }
 
-/*
     public function getAllEntries() {
-        $stmt = self::$_connection->prepare("SELECT * FROM DiaryEntry WHERE diary_id = :diary_id");
+        $stmt = self::$_connection->prepare("SELECT * FROM Diary_Entry WHERE diary_id = :diary_id");
         $stmt->execute(['diary_id'=>$this->diary_id]);
-        $stmt->setFetchMode(PDO::FETCH_CLASS, 'DiaryEntry');
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Diary_Entry');
         return $stmt->fetchAll();
     }
-*/
     
     public function find($diary_id) {
         $stmt = self::$_connection->prepare("SELECT * FROM Diary WHERE diary_id = :diary_id");
