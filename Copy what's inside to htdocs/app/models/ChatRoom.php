@@ -1,8 +1,11 @@
 <?php
 
-class _Person extends Model {
-	public $first_name;
-	public $last_name;
+class Chat_Room extends Model {
+	public $chat_room_id;
+    public $category_id;
+    public $owner_id;
+    public $room_title;
+    public $maximum_space;
 
     public function __construct()
     {   
@@ -10,34 +13,39 @@ class _Person extends Model {
     }
 
 	public function getAll() {
-        $stmt = self::$_connection->prepare("SELECT * FROM Person");
+        $stmt = self::$_connection->prepare("SELECT * FROM Chat_Room");
         $stmt->execute();
-    	$stmt->setFetchMode(PDO::FETCH_CLASS, '_Person');
+    	$stmt->setFetchMode(PDO::FETCH_CLASS, 'Chat_Room');
 		return $stmt->fetchAll();
     }
 
-    public function find($person_id) {
-        $stmt = self::$_connection->prepare("SELECT * FROM Person WHERE person_id = :person_id");
-        $stmt->execute(['person_id'=>$person_id]);
-        $stmt->setFetchMode(PDO::FETCH_CLASS, '_Person');
+    public function find($chat_room_id) {
+        $stmt = self::$_connection->prepare("SELECT * FROM Chat_Room WHERE chat_room_id = :chat_room_id");
+        $stmt->execute(['chat_room_id'=>$chat_room_id]);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Chat_Room');
         return $stmt->fetch();
     }
 
     public function insert() {
-	    $stmt = self::$_connection->prepare("INSERT INTO Person(first_name, last_name) VALUES(:first_name,:last_name)");
-        $stmt->execute(['first_name'=>$this->first_name,
-         'last_name'=>$this->last_name]);
+	    $stmt = self::$_connection->prepare("INSERT INTO Chat_Room(category_id, owner_id, room_title, maximum_space, timestamp) VALUES(:category_id, :owner_id, :room_title, :maximum_space, :timestamp)");
+        $stmt->execute(['category_id'=>$this->category_id,
+                        'owner_id'=>$this->owner_id,
+                        'room_title'=>$this->room_title,
+                        'maximum_space'=>$this->maximum_space,
+                        'timestamp'=>$this->timestamp]);
     }
 
     public function delete() {
-        $stmt = self::$_connection->prepare("DELETE FROM Person WHERE person_id = :person_id");
-        $stmt->execute(['person_id'=>$this->person_id]);
+        $stmt = self::$_connection->prepare("DELETE FROM Chat_Room WHERE chat_room_id = :chat_room_id");
+        $stmt->execute(['chat_room_id'=>$this->chat_room_id]);
     }
 
     public function update() {
-        $stmt = self::$_connection->prepare("UPDATE Person SET first_name = :first_name, last_name = :last_name WHERE person_id = :person_id");
-        $stmt->execute(['first_name'=>$this->first_name,
-         'last_name'=>$this->last_name, 'person_id'=>$this->person_id]);
+        $stmt = self::$_connection->prepare("UPDATE Chat_Room SET category_id = :category_id, owner_id = :owner_id, room_title = :room_title, maximum_space = :maximum_space WHERE chat_room_id = :chat_room_id");
+        $stmt->execute(['category_id'=>$this->category_id,
+                        'owner_id'=>$this->owner_id,
+                        'room_title'=>$this->room_title,
+                        'maximum_space'=>$this->maximum_space]);
     }
 
 }
