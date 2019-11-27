@@ -16,24 +16,25 @@ class Profile extends Model {
     }
 
 	public function getAll() {
-        $stmt = self::$_connection->prepare("SELECT * FROM Profile");
-        $stmt->execute();
+        $stmt = self::$_connection->prepare("SELECT * FROM Profile where profile_id != :profile_id");
+        $stmt->execute(['profile_id'=>$this->profile_id]);
     	$stmt->setFetchMode(PDO::FETCH_CLASS, 'Profile');
 		return $stmt->fetchAll();
     }
 
-    public function find() {
+    public function find($profile_id) {
         $stmt = self::$_connection->prepare("SELECT * FROM Profile WHERE profile_id = :profile_id");
-        $stmt->execute(['profile_id'=>$this->profile_id]);
+        $stmt->execute(['profile_id'=>$profile_id]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Profile');
         return $stmt->fetch();
     }
 
-    public function search() {
-        $stmt = self::$_connection->prepare("SELECT * FROM Profile WHERE first_name = :first_name OR last_name = :last_name OR username = :username");
-        $stmt->execute(['first_name'=>$this->first_name,'last_name'=>$this->last_name,'username'=>$this->username]);
+    public function search($search_string) {
+        $wild_card = '%' . $search_string . '%';
+        $stmt = self::$_connection->prepare("SELECT * FROM Profile WHERE profile_id != :profile_id AND (first_name Like :first_name OR last_name Like :last_name OR username Like :username)");
+        $stmt->execute(['profile_id'=>  $this->profile_id,'first_name'=>$wild_card,'last_name'=>$wild_card,'username'=>$wild_card]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Profile');
-        return $stmt->fetch();
+        return $stmt->fetchAll();
     }
 
     public function insert() {

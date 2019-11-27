@@ -13,6 +13,7 @@
 		<h1 style="text-align: center">News Feed</h1>
 			<div style="text-align: right; padding-top: 10px; padding-right: 10px">
 		<a href= '/Post/createPost' style="color: red">Create post</a>
+	
 	</div>
 	</div>
 

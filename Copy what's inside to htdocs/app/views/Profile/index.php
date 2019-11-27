@@ -11,8 +11,9 @@
 
 
 
-<div class="container">
+<div class="container" >
 	<h1 style="text-align: center">My Profile</h1>
+
 </div>
 
 
