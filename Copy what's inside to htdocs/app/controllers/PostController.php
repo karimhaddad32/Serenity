@@ -1,5 +1,4 @@
 <?php
-
 class PostController extends Controller 
 {
 	public function index() 
@@ -10,11 +9,74 @@ class PostController extends Controller
 
 		$this->view('Post/index', $posts);
 	}
-	public function create() 
+	public function createStatus() 
 	{
 		if (!isset($_POST['action'])) 
 		{
-			$this->view('Post/create');
+			$this->view('Post/createStatus');
+		} 
+		else 
+		{
+			$newPost = $this->model('Post');
+			$newPost->profile_id = $_SESSION['user_id'];
+			$newPost->type = $_POST['type'];
+			$newPost->reference_link = $_POST['reference_link'];
+			$newPost->category_id = $_POST['category_id'];
+			$newPost->timestamp = $_POST['timestamp'];
+			$newPost->post_content = $_POST['post_content'];
+			$newPost->picture_id = $_POST['picture_id'];
+			$newPost->createPost();
+			//redirecttoaction
+			header('location:/Post/index');
+		}
+	}
+	public function createPublicBlog() 
+	{
+		if (!isset($_POST['action'])) 
+		{
+			$this->view('Post/createPublicBlogPost');
+		} 
+		else 
+		{
+			$newPost = $this->model('Post');
+			$newPost->profile_id = $_SESSION['user_id'];
+			$newPost->type = $_POST['type'];
+			$newPost->reference_link = $_POST['reference_link'];
+			$newPost->category_id = $_POST['category_id'];
+			$newPost->timestamp = $_POST['timestamp'];
+			$newPost->post_content = $_POST['post_content'];
+			$newPost->picture_id = $_POST['picture_id'];
+			$newPost->createPost();
+			//redirecttoaction
+			header('location:/Post/index');
+		}
+	}
+	public function createPrivateBlog() 
+	{
+		if (!isset($_POST['action'])) 
+		{
+			$this->view('Post/createPrivateBlogPost');
+		} 
+		else 
+		{
+			$newPost = $this->model('Post');
+			$newPost->profile_id = $_SESSION['user_id'];
+			$newPost->type = $_POST['type'];
+			$newPost->reference_link = $_POST['reference_link'];
+			$newPost->category_id = $_POST['category_id'];
+			$newPost->timestamp = $_POST['timestamp'];
+			$newPost->post_content = $_POST['post_content'];
+			$newPost->picture_id = $_POST['picture_id'];
+			$newPost->createPost();
+			//redirecttoaction
+			header('location:/Post/index');
+		}
+	}
+	public function createQuote() 
+	{
+		if (!isset($_POST['action'])) 
+		{
+			$this->view('Post/createQuote');
 		} 
 		else 
 		{
