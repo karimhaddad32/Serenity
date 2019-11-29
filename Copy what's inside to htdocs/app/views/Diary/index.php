@@ -43,7 +43,7 @@ foreach ($model as $diary) {
 		<td>$diary->category_id</td>
 
 		<td>
-			<a href='/diary/view/$diary->diary_id'>View</a> |
+			<a href='/diary/entries/$diary->diary_id'>View Entries</a> |
 			<a href='/diary/edit/$diary->diary_id'>Edit</a> |
 			<a href='/diary/delete/$diary->diary_id'>Delete</a>
 		</td>

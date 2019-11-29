@@ -11,9 +11,11 @@ class Direct_Message extends Model {
 	}
 
 	public function getAllConversations() {
-		$stmt = self::$_connection->prepare("SELECT * FROM Direct_Message WHERE sender_id = $_SESSION['user_id'] OR receiver_id = $_SESSION['user_id']");
-		$stmt->execute();
-		$stmt->setFetchMode(PDO::FETCH_CLASS, 'DirectMessage');
+		$user = $_SESSION['user_id'];
+		$stmt = self::$_connection->prepare("SELECT * FROM Direct_Message WHERE sender_id = :sender_id OR receiver_id = :sender_id");
+		$stmt->execute(
+            ['sender_id' => $user]);
+		$stmt->setFetchMode(PDO::FETCH_CLASS, 'Direct_Message');
 		return $stmt->fetchAll(); 
 	}
 

@@ -1,17 +1,18 @@
 <?php
-class Direct_MessageController extends Controller 
-{
-	public function index() 
+	class Direct_MessageController extends Controller 
 	{
-		$theMessage = $this->model('Direct_Message');
-		$theMessages->profile_id = $_SESSION['user_id'];
-		$theMessages = $theMessage->getAllConversations();
+		public function index() 
+		{
+			$theMessage = $this->model('Direct_Message');
+			$theMessage->sender_id = $_SESSION['user_id'];
+			$theMessages = $theMessage->getAllConversations();
 
-		$this->view('DirectMessage/index', $theMessages);
-	} 
-	public function create() 
-	{
-		
+			$this->view('Direct_Message/index', $theMessages);
+		}
+
+		public function create()
+		{
+
+		}
 	}
-}
 ?>

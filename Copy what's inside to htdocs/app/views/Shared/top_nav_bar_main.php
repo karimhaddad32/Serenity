@@ -10,7 +10,7 @@
   	</div>
  
   	<div style="float: right;">
-  		<a href= '/Profile/wall' style="margin: 5px" >Messages</a>
+  		<a href= '/Direct_Message/index' style="margin: 5px" >Messages</a>
 		<a href= '/Login/logout' class="btn btn-outline-info my-2 my-sm-0" style="margin: 5px" >Logout</a>
   	</div>
 </nav>

@@ -9,7 +9,16 @@
 	<h1 style="color: #326496">Create a diary</h1>
 	<form method='post'>
 		<label>Diary Name<input type='text' name='diary_title' /></label><br>
-		<label>Category<input type='text' name='category_id' /></label><br>
+		
+		<select name="category_id">
+			<?php
+				foreach ($model as $category) 
+				{
+					echo "<option value='$category->category_id'>$category->category_type</option>";
+				}
+			?>
+		</select>
+
 		<input type='submit' name='action' value='Create' />
 		<a href="/diary/index">Cancel</a>
 	</form>
