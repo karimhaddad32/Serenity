@@ -6,7 +6,7 @@ class PictureController extends Controller {
 		$pictures = $picture->getAllPictures();
 		$this->view('Picture/index', $pictures);
 	}
-	public function create() {
+	public function create($post_id) {
 		if (!isset($_POST['action'])) {
 			$this->view('Picture/create');
 		} else {
@@ -16,18 +16,21 @@ class PictureController extends Controller {
 			header('location:/Picture/index');
 		}
 	}
-	// public function edit($person_id) {
-	// 	$thePerson = $this->model('_Person')->find($person_id);
-	// 	if (!isset($_POST['action'])) {
-	// 		$this->view('Default/edit', $thePerson);
-	// 	} else {
-	// 		$thePerson->first_name = $_POST['first_name'];
-	// 		$thePerson->last_name = $_POST['last_name'];
-	// 		$thePerson->update();
-	// 		//redirecttoaction
-	// 		header('location:/Default/index');
-	// 	}
-	// }
+
+	public function upload() {
+		$profile = $this->model('Profile')->find($_SESSION['user_id']);
+
+		if (!isset($_POST['action'])) {
+			$this->view('Picture/upload');
+		} else {
+			$thePerson->first_name = $_POST['first_name'];
+			$thePerson->last_name = $_POST['last_name'];
+			$thePerson->update();
+			//redirecttoaction
+			header('location:/Default/index');
+		}
+	}
+
 	public function delete($picture_id) {
 		$thePicture = $this->model('Picture')->find($picture_id);
 		if (!isset($_POST['action'])) {

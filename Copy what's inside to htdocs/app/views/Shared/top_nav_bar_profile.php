@@ -8,6 +8,7 @@
 
 	</div>
 	<div>
+		<a href="/Profile/upload_picture" >Upload a profile picture</a>
 		<a href ='/Profile/edit' style="margin: 10px">Edit Profile</a>
 	</div>
 	

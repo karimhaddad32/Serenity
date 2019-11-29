@@ -54,6 +54,8 @@ class Profile extends Model {
         $stmt->execute(['first_name'=>$this->first_name,
          'last_name'=>$this->last_name, 'username'=>$this->username,'phone_number'=>$this->phone_number,'gender'=>$this->gender,'profile_style_id'=>$this->profile_style_id,'profile_picture'=>$this->profile_picture,'profile_id'=>$this->profile_id ]);
     }
+
+    
 }
 
 ?>

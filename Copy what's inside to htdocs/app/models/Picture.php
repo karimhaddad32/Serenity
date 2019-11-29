@@ -2,8 +2,6 @@
 class Picture extends Model 
 {
 	public $picture_id;
-	public $caption;
-    public $location;
     public $path;
     public $timestamp;
 
@@ -11,33 +9,38 @@ class Picture extends Model
     {   
         parent::__construct();
     }
-	public function getAllPictures() 
-    {
-        $stmt = self::$_connection->prepare("SELECT * FROM Picture WHERE profile_id = :profile_id");
-        $stmt->execute(['profile_id' => $this->profile_id]);
-    	$stmt->setFetchMode(PDO::FETCH_CLASS, 'Picture');
-		return $stmt->fetchAll();
-    }
-    public function findPicture($picture_id) 
+
+    public function find($picture_id)
     {
         $stmt = self::$_connection->prepare("SELECT * FROM Picture WHERE picture_id = :picture_id");
         $stmt->execute(['picture_id'=>$picture_id]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Picture');
         return $stmt->fetch();
     }
-    public function uploadPicture() 
+    public function insert() 
     {
-	    $stmt = self::$_connection->prepare("INSERT INTO Picture(caption, location, path, timestamp) VALUES (:caption, :location, :path, :timestamp)");
-        $stmt->execute(['caption'=>$this->caption,
-         'location'=>$this->location, 'path'=>$this->path, 'timestamp'=>$this->timestamp]);
+	    $stmt = self::$_connection->prepare("INSERT INTO Picture(path) VALUES (:path)");
+        $stmt->execute(['path'=>$this->path]);
     }
-    public function deletePicture() 
+
+      public function update() 
     {
-        if ($profile_id = $_SESSION['user_id']) 
-        {
+        $stmt = self::$_connection->prepare("UPDATE Picture Set path = :path Where picture_id = :picture_id") ;
+        $stmt->execute(['picture_id'=>$this->picture_id,
+          'path'=>$this->path]);
+    }
+
+    public function delete() 
+    {      
             $stmt = self::$_connection->prepare("DELETE FROM Picture WHERE picture_id = :picture_id");
-            $stmt->execute(['picture_id'=>$this->picture_id]);
-        }
+            $stmt->execute(['picture_id'=>$this->picture_id]);   
+    }
+
+    public function getInsertedPicture(){
+        $stmt = self::$_connection->prepare("SELECT * FROM Picture WHERE path = :path");
+        $stmt->execute(['path'=>$this->path]);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Picture');
+        return $stmt->fetch();
     }
     // public function editPicture() 
     // {
@@ -45,7 +48,7 @@ class Picture extends Model
     //     {
     //         $stmt = self::$_connection->prepare("UPDATE Picture SET caption = :caption, location = :location WHERE picture_id = :picture_id");
     //         $stmt->execute(['caption'=>$this->caption,
-    //         'location'=>$this->location, 'picture_id'=>$this->picture_id]);
+    //         
     //     }
     // }
 }
