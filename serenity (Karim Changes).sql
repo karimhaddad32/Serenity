@@ -1292,16 +1292,6 @@ ALTER TABLE `tag`
   ADD CONSTRAINT `tag_profile_tagger_id` FOREIGN KEY (`tagger_id`) REFERENCES `profile` (`profile_id`);
 COMMIT;
 
-INSERT INTO `category` (`category_id`, `category_type`, `category_description`) VALUES
-(1, 'Anxiety', 'Anything that has to do with Anxiety falls into this category. There\'s Generalized Anxiety Disorder, Social Anxiety Disorder, Post-Traumatic Stress Disorder and Obsessive-Compulsive Disorder. Panic Disorder and Agoraphobia also falls here.'),
-(2, 'Depression', 'Anything in relation to Depression falls here. For example, Manic Depression or Chronic Depression. '),
-(3, 'Bipolar Disorder', 'This category encompasses anything that\'s in relation to being Bipolar. '),
-(4, 'Schizophrenia', 'If you are schizophrenic, anything in relation to that will be part of this category. '),
-(5, 'Eating Disorder', 'If you struggle with any of the 4 eating disorders (Anorexia, Bulimia, etc.), this category is for you. '),
-(6, 'Personality Disorder', 'Information for Personality Disorders will be classified under this category. '),
-(7, 'Substance Abuse Disorder', 'If you struggle with Substance Abuse, all the information you may require will fall under this category. '),
-(8, 'Impulse Disorder', 'Struggling with an Impulse Disorder? Here\'s the category for you! '),
-(9, 'Neurodevelopment Disorder', 'Going through a Neurodevelopment Disorder? This category will explain everything you need to know, from ADHD to Autism. ');
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
