@@ -7,25 +7,23 @@ class PostController extends Controller
 		$post->profile_id = $_SESSION['user_id'];
 		$posts = $post->getAllPosts();
 
-		$this->view('Post/index', $posts);
+		$this->view('Post/index', $posts, $post);
 	}
 	public function createStatus() 
 	{
 		if (!isset($_POST['action'])) 
 		{
-			$this->view('Post/createStatus');
+			$list = $this->model('Category')->getAll();
+			$this->view('Post/createStatus', $list);
 		} 
 		else 
 		{
 			$newPost = $this->model('Post');
 			$newPost->profile_id = $_SESSION['user_id'];
-			$newPost->type = $_POST['type'];
-			$newPost->reference_link = $_POST['reference_link'];
-			$newPost->category_id = $_POST['category_id'];
-			$newPost->timestamp = $_POST['timestamp'];
+			$newPost->type = 'Status Update';
+			$newPost->category_id = $_POST['test'];
 			$newPost->post_content = $_POST['post_content'];
-			$newPost->picture_id = $_POST['picture_id'];
-			$newPost->createPost();
+			$newPost->createStatusPost();
 			//redirecttoaction
 			header('location:/Post/index');
 		}
@@ -34,19 +32,18 @@ class PostController extends Controller
 	{
 		if (!isset($_POST['action'])) 
 		{
-			$this->view('Post/createPublicBlogPost');
+			$list = $this->model('Category')->getAll();
+			$this->view('Post/createPublicBlogPost', $list);
 		} 
 		else 
 		{
 			$newPost = $this->model('Post');
 			$newPost->profile_id = $_SESSION['user_id'];
-			$newPost->type = $_POST['type'];
+			$newPost->type = 'Public Blog';
 			$newPost->reference_link = $_POST['reference_link'];
 			$newPost->category_id = $_POST['category_id'];
-			$newPost->timestamp = $_POST['timestamp'];
 			$newPost->post_content = $_POST['post_content'];
-			$newPost->picture_id = $_POST['picture_id'];
-			$newPost->createPost();
+			$newPost->createPublicPost();
 			//redirecttoaction
 			header('location:/Post/index');
 		}
@@ -55,19 +52,18 @@ class PostController extends Controller
 	{
 		if (!isset($_POST['action'])) 
 		{
-			$this->view('Post/createPrivateBlogPost');
+			$list = $this->model('Category')->getAll();
+			$this->view('Post/createPrivateBlogPost', $list);
 		} 
 		else 
 		{
 			$newPost = $this->model('Post');
 			$newPost->profile_id = $_SESSION['user_id'];
-			$newPost->type = $_POST['type'];
+			$newPost->type = 'Private Blog';
 			$newPost->reference_link = $_POST['reference_link'];
 			$newPost->category_id = $_POST['category_id'];
-			$newPost->timestamp = $_POST['timestamp'];
 			$newPost->post_content = $_POST['post_content'];
-			$newPost->picture_id = $_POST['picture_id'];
-			$newPost->createPost();
+			$newPost->createPrivatePost();
 			//redirecttoaction
 			header('location:/Post/index');
 		}
@@ -82,13 +78,11 @@ class PostController extends Controller
 		{
 			$newPost = $this->model('Post');
 			$newPost->profile_id = $_SESSION['user_id'];
-			$newPost->type = $_POST['type'];
-			$newPost->reference_link = $_POST['reference_link'];
+			$newPost->type = 'Quote Post';
 			$newPost->category_id = $_POST['category_id'];
-			$newPost->timestamp = $_POST['timestamp'];
 			$newPost->post_content = $_POST['post_content'];
 			$newPost->picture_id = $_POST['picture_id'];
-			$newPost->createPost();
+			$newPost->createQuotePost();
 			//redirecttoaction
 			header('location:/Post/index');
 		}

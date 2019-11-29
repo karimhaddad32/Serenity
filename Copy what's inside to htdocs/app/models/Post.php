@@ -1,5 +1,4 @@
 <?php
-
 class Post extends Model 
 {
     public $post_id;
@@ -29,13 +28,37 @@ class Post extends Model
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Post');
         return $stmt->fetch(); 
     }
-    public function createPost() 
+    public function createStatusPost() 
     {
         $stmt = self::$_connection->prepare("INSERT INTO Post
-                                                        (post_id, profile_id, type, reference_link, category_id, timestamp, post_content, picture_id) 
+                                                        (post_id, profile_id, type, category_id, timestamp, post_content) 
                                                     VALUES 
-                                                    (:post_id, :profile_id, :type, :reference_link, :category_id, :timestamp, :post_content, :picture_id)");
-        $stmt->execute(['post_id'=>$this->post_id, 'profile_id'=>$this->profile_id, 'type'=>$this->type, 'reference_link'=>$this->reference_link, 'category_id'=>$this->category_id, 'timestamp'=>$this->timestamp, 'post_content'=>$this->post_content, 'picture_id'=>$this->picture_id]);
+                                                    (:post_id, :profile_id, :type, :category_id, :timestamp, :post_content)");
+        $stmt->execute(['post_id'=>$this->post_id, 'profile_id'=>$this->profile_id, 'type'=>$this->type, 'category_id'=>$this->category_id, 'timestamp'=>$this->timestamp, 'post_content'=>$this->post_content]);
+    }
+    public function createPublicPost() 
+    {
+        $stmt = self::$_connection->prepare("INSERT INTO Post
+                                                        (post_id, profile_id, type, reference_link, category_id, timestamp, post_content) 
+                                                    VALUES 
+                                                    (:post_id, :profile_id, :type, :reference_link, :category_id, :timestamp, :post_content)");
+        $stmt->execute(['post_id'=>$this->post_id, 'profile_id'=>$this->profile_id, 'type'=>$this->type, 'reference_link'=>$this->reference_link, 'category_id'=>$this->category_id, 'timestamp'=>$this->timestamp, 'post_content'=>$this->post_content]);
+    }
+    public function createPrivatePost() 
+    {
+        $stmt = self::$_connection->prepare("INSERT INTO Post
+                                                        (post_id, profile_id, type, reference_link, category_id, timestamp, post_content) 
+                                                    VALUES 
+                                                    (:post_id, :profile_id, :type, :reference_link, :category_id, :timestamp, :post_content)");
+        $stmt->execute(['post_id'=>$this->post_id, 'profile_id'=>$this->profile_id, 'type'=>$this->type, 'reference_link'=>$this->reference_link, 'category_id'=>$this->category_id, 'timestamp'=>$this->timestamp, 'post_content'=>$this->post_content]);
+    }
+    public function createQuotePost() 
+    {
+        $stmt = self::$_connection->prepare("INSERT INTO Post
+                                                        (post_id, profile_id, type, category_id, timestamp, post_content, picture_id) 
+                                                    VALUES 
+                                                    (:post_id, :profile_id, :type, :category_id, :timestamp, :post_content, :picture_id)");
+        $stmt->execute(['post_id'=>$this->post_id, 'profile_id'=>$this->profile_id, 'type'=>$this->type, 'category_id'=>$this->category_id, 'timestamp'=>$this->timestamp, 'post_content'=>$this->post_content, 'picture_id'=>$this->picture_id]);
     }
     public function editPost() 
     {
@@ -60,6 +83,13 @@ class Post extends Model
             $stmt = self::$_connection->prepare("DELETE FROM Post WHERE post_id = :post_id");
             $stmt->execute(['post_id'=>$post_id]); 
         }
+    }
+     public function getCategories() 
+    {
+        $stmt = self::$_connection->prepare("SELECT * FROM Category");
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Category'); 
+        return $stmt->fetchAll(); 
     }
 }
 ?>
