@@ -31,16 +31,99 @@
 <?php
 
 foreach ($model->other_profiles as $profile) {
-	echo "<tr>
-		<td>$profile->first_name $profile->last_name</td>
-		<td>$profile->username</td>
-		<td>$profile->gender</td>
-		<td>$profile->phone_number</td>
-		<td>
-			<a href='/profile/add/$profile->profile_id'>Add</a>
-			<a href='/profile/subscribe/$profile->profile_id'>Subscribe</a>
-		</td>
-	</tr>";
+
+	if($profile->friend_link != null){
+		if($profile->friend_link->relationship == 'Friends'){
+			if($profile->friend_link->accepted == true){
+
+				echo "<tr>
+						<td>$profile->first_name $profile->last_name</td>
+						<td>$profile->username</td>
+						<td>$profile->gender</td>
+						<td>$profile->phone_number</td>
+						<td>
+							<a href='/Friend_Link/remove_friend/$profile->profile_id'>Remove Friend</a>
+						</td>
+					</tr>";
+			}
+			else{
+					if($profile->friend_link->sender_id != $profile->profile_id){
+
+						echo "<tr>
+						<td>$profile->first_name $profile->last_name</td>
+						<td>$profile->username</td>
+						<td>$profile->gender</td>
+						<td>$profile->phone_number</td>
+						<td>
+							<a href='/Friend_Link/remove_friend/$profile->profile_id'>Cancel Request</a>
+					
+						</td>
+					</tr>";
+
+					}else{
+						echo "<tr>
+						<td>$profile->first_name $profile->last_name</td>
+						<td>$profile->username</td>
+						<td>$profile->gender</td>
+						<td>$profile->phone_number</td>
+						<td>
+							<a href='/Friend_Link/accept_friendship/$profile->profile_id'>Accept Request</a>
+							<a href='/Friend_Link/remove_friend/$profile->profile_id'>Subscribe</a>
+						</td>
+					</tr>";
+					}
+					
+
+			}
+		}else if($profile->friend_link->relationship == 'Followed'){
+
+
+				if($profile->friend_link->sender_id == $profile->profile_id){
+
+					echo "<tr>
+						<td>$profile->first_name $profile->last_name</td>
+						<td>$profile->username</td>
+						<td>$profile->gender</td>
+						<td>$profile->phone_number</td>
+						<td>
+							<a href='/Friend_Link/add/$profile->profile_id'>Add as Friend</a>
+							<a href='/Friend_Link/remove_friend/$profile->profile_id'>Subscribe</a>
+						</td>
+					</tr>";
+				}else{
+
+					echo "<tr>
+						<td>$profile->first_name $profile->last_name</td>
+						<td>$profile->username</td>
+						<td>$profile->gender</td>
+						<td>$profile->phone_number</td>
+						<td>
+							<a href='/Friend_Link/add/$profile->profile_id'>Add as Friend</a>
+							<a href='/Friend_Link/remove_friend/$profile->profile_id'>Unsubscribe</a>
+						</td>
+					</tr>";
+
+
+				}
+					
+				
+		}
+				
+	}else{
+		echo "<tr>
+						<td>$profile->first_name $profile->last_name</td>
+						<td>$profile->username</td>
+						<td>$profile->gender</td>
+						<td>$profile->phone_number</td>
+						<td>
+							<a href='/Friend_Link/add/$profile->profile_id'>Add as Friend</a>
+							<a href='/Friend_Link/subscribe/$profile->profile_id'>Subscribe</a>
+						</td>
+					</tr>";
+	}
+	
+	
+
 }
 
 ?>

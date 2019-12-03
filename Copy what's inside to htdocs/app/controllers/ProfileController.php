@@ -112,29 +112,36 @@ class ProfileController extends Controller {
 	public function search_friends(){
 
 			$profile_id = $_SESSION['user_id'];
+
 			$profile = $this->model('Profile')->find($profile_id);
-		
+			
+			 if(!isset($_POST['username']) || $_POST['username'] == ''){	
 
-		
-			 if(!isset($_POST['username']) || $_POST['username'] == ''){
-
-				$profile = $profile->find($profile_id);
 
 				$profiles = $profile->getAll();
 
-				$profile->other_profiles = $profiles;
-		
-			return $this->view('Profile/search_friends', $profile);
 			 }else{
 	
 				$profiles = $profile->search($_POST['username']);
 
+			 }
+			 	foreach ($profiles as $p ) {
+
+			 		$friend_link = $this->model('friend_link')->find($_SESSION['user_id'], $p->profile_id);
+
+			 
+			 
+			 		$p->friend_link = $friend_link;
+			 	}
+
+			 		
+
+
 				$profile->other_profiles = $profiles;
+
 			
 				return $this->view('Profile/search_friends', $profile);
-			 }
-		
-		//$friends = $profile->getAllFriends();
+	
 
 	}
 

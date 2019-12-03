@@ -11,26 +11,41 @@ class Friend_Link extends Model
 	{
 		parent::__construct(); 
 	}
-	public function getAllFriends() 
+
+	public function getAllFriends($user_id) 
 	{
-		$stmt = self::$_connection->prepare("SELECT * FROM Friend_Link WHERE profile_id = :profile_id"); 
-		$stmt->execute(['profile_id' => $this->profile_id]);
+		$stmt = self::$_connection->prepare("SELECT * FROM Friend_Link WHERE (sender_id = :sender_id OR receiver_id = :sender_id) AND relationship = :relationship"); 
+		$stmt->execute(['sender_id' => $user_id, 'relationship' => 'Friends']);
 		$stmt->setFetchMode(PDO::FETCH_CLASS, 'Friend_Link'); 
-		return $stmt->fetchAll(); 
+		return $stmt->fetchAll();
 	}
-	public function sendFriendRequest() 
-	{
-		//
+
+	public function find($current, $other){
+		$stmt = self::$_connection->prepare("SELECT * FROM Friend_Link WHERE (sender_id = :sender_id AND receiver_id = :receiver_id) OR (sender_id = :receiver_id AND receiver_id = :sender_id)"); 
+		$stmt->execute(['sender_id' => $current, 'receiver_id' => $other]);
+		$stmt->setFetchMode(PDO::FETCH_CLASS, 'Friend_Link'); 
+		return $stmt->fetch();
 	}
-	public function acceptFriend() 
+
+	public function insert() 
 	{
-		$stmt = self::$_connection->prepare("INSERT INTO Friend_Link(accepted, timestamp, relationship) VALUES (:accepted, :timestamp, :relationship)");
-		$stmt->execute(['accepted' => $this->accepted, 'timestamp' => $this->timestamp, 'relationship' => $this->relationship]);
+		$stmt = self::$_connection->prepare("INSERT INTO Friend_Link(sender_id,receiver_id, accepted ,relationship) VALUES(:sender_id,:receiver_id,:accepted,:relationship)");
+        $stmt->execute(['sender_id'=>$this->sender_id,'receiver_id'=>$this->receiver_id,'accepted'=>$this->accepted,'relationship'=>$this->relationship]);
 	}
-	public function removeFriend() 
+
+
+	public function update() 
 	{
-		$stmt = self::$_connection->prepare("DELETE FROM Friend_Link WHERE sender_id = $_SESSION['user_id'] OR receiver_id = $_SESSION['user_id']"); 
-		//$stmt->execute(['']);
+		 $stmt = self::$_connection->prepare("UPDATE Friend_Link SET accepted = :accepted, relationship = :relationship WHERE (sender_id = :sender_id AND receiver_id = :receiver_id) OR (sender_id = :receiver_id AND receiver_id = :sender_id)");
+        $stmt->execute(['accepted'=>$this->accepted,
+         'relationship'=>$this->relationship, 'sender_id'=>$this->sender_id,'receiver_id'=>$this->receiver_id]);		
+	}
+
+	public function delete() 
+	{
+		$stmt = self::$_connection->prepare("DELETE FROM Friend_Link WHERE (sender_id = :sender_id AND receiver_id = :receiver_id) OR sender_id = :receiver_id AND receiver_id = :sender_id"); 
+		$stmt->execute(['sender_id'=>$this->sender_id,
+         'receiver_id'=>$this->receiver_id]);
 	}
 }
 ?>
