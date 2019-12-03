@@ -1,27 +1,35 @@
 <?php
 
-class _DefaultController extends Controller {
+class Chat_RoomController extends Controller {
 
 	public function index() {
-		$person = $this->model('_Person');
-		$people = $person->getAll();
+		$chatRoom = $this->model('Chat_Room');
+		$chatRooms = $chatRoom->getAll();
 
-		$this->view('Default/allGood', $people);
+		$this->view('Chat_Room/index', $chatRooms);
 	}
 
 	public function create() {
 		if (!isset($_POST['action'])) {
-			$this->view('Default/create');
+			$this->view('Chat_Room/create');
 		} else {
-			$person = $this->model('_Person');
-			$person->first_name = $_POST['first_name'];
-			$person->last_name = $_POST['last_name'];
-			$person->insert();
+			$chatRoom = $this->model('Chat_Room');
+			$chatRoom->category_id = $_POST['category_id'];
+			$chatRoom->owner_id = $_SESSION['user_id'];
+			$chatRoom->room_title = $_POST['room_title'];
+			$chatRoom->maximum_space = $_POST['maximum_space'];
+			$chatRoom->insert();
 			//redirecttoaction
-			header('location:/Default/index');
+			header('location:/Chat_Room/index');
 		}
 	}
 
+		public function chat($chat_room_id) {
+			$chatRoomMessage = $this->model('Chat_Room_Message');
+			$chatRoomMessages = $chatRoomMessage->getAllChatRoomMessagesInChatRoom($chat_room_id);
+			$this->view('Chat_Room/chat', $chatRoomMessages);
+		}
+/*
 	public function edit($person_id) {
 		$thePerson = $this->model('_Person')->find($person_id);
 		if (!isset($_POST['action'])) {
@@ -49,7 +57,7 @@ class _DefaultController extends Controller {
 		}
 
 	}
-
+*/
 }
 
 ?>

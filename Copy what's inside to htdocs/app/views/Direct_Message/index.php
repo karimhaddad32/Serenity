@@ -22,27 +22,25 @@
 
 <table>
 	<tr>
-		<th>message_id</th>
 		<th>sender_id</th>
 		<th>receiver_id</th>
-		<th>message_content</th>
+		<th>accepted</th>
 		<th>timestamp</th>
+		<th>relationship</th>
 	</tr>
 
 <?php
 
-foreach ($model as $direct_message) {
+foreach ($model as $friend_link) {
 	echo "<tr>
-		<td>$direct_message->message_id</td>
-		<td>$direct_message->sender_id</td>
-		<td>$direct_message->receiver_id</td>
-		<td>$direct_message->message_content</td>
-		<td>$direct_message->timestamp</td>
+		<td>$friend_link->sender_id</td>
+		<td>$friend_link->receiver_id</td>
+		<td>$friend_link->accepted</td>
+		<td>$friend_link->timestamp</td>
+		<td>$friend_link->relationship</td>
 
 		<td>
-			<a href='/direct_message/view/$direct_message->message_id'>View</a> |
-			<a href='/direct_message/edit/$direct_message->message_id'>Edit</a> |
-			<a href='/direct_message/delete/$direct_message->message_id'>Delete</a>
+			<a href='/Direct_Message/message'>Message</a>
 		</td>
 	</tr>";
 }
