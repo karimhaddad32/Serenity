@@ -18,7 +18,7 @@ class Chat_Room_Message extends Model {
 		return $stmt->fetchAll();
     }
 
-    public function getAllChatRoomMessagesInChatRoom() {
+    public function getAllChatRoomMessagesInChatRoom($chat_room_id) {
         $stmt = self::$_connection->prepare("SELECT * FROM Chat_Room_Message WHERE chat_room_id = :chat_room_id");
         $stmt->execute(['chat_room_id'=>$chat_room_id]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Chat_Room_Message');
