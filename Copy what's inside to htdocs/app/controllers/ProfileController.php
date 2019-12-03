@@ -161,6 +161,24 @@ class ProfileController extends Controller {
 			}	
 	}
 
+	public function friends_wall () 
+	{
+		$profile_id = $_SESSION['user_id'];
+		$profile = $this->model('Profile');
+		$profile = $profile->find($profile_id);
+
+		if($profile != null)
+		{
+			$_SESSION['profile_id'] = $profile->profile_id;
+			return $this->view('Profile/friends_wall');
+		}
+		else
+		{
+			$_SESSION['profile_id'] = null;
+			header('location:/Profile/create');
+		}	
+	}
+
 	public function create() {
 		if (!isset($_POST['action'])) {
 			$this->view('Profile/create');

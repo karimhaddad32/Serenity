@@ -3,7 +3,7 @@
 
 <nav class="navbar navbar-dark bg-dark">
 	<div>
-		<a href= '/Profile/wall' style="margin: 5px" >Friends Feed</a>
+		<a href= '/Profile/friends_wall' style="margin: 5px" >Friends Feed</a>
 		<a href= '/Profile/wall' style="margin: 5px" >News Feed</a>
 		<a href= '/Profile/search_friends' style="margin: 5px" >Friends</a>
 		<a href= '/Profile/index' style="margin: 5px" >View Your Profile</a>

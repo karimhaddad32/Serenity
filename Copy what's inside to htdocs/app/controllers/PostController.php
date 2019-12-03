@@ -7,7 +7,7 @@ class PostController extends Controller
 		$post->profile_id = $_SESSION['user_id'];
 		$posts = $post->getAllPosts();
 
-		$this->view('Post/index', $posts, $post);
+		$this->view('Post/index', $posts);
 	}
 	public function createStatus() 
 	{
@@ -45,7 +45,7 @@ class PostController extends Controller
 			$newPost->post_content = $_POST['post_content'];
 			$newPost->createPublicPost();
 			//redirecttoaction
-			header('location:/Post/index');
+			header('location:/Profile/wall');
 		}
 	}
 	public function createPrivateBlog() 
@@ -110,16 +110,11 @@ class PostController extends Controller
 	public function delete($post_id) 
 	{
 		$thePost = $this->model('Post')->find($post_id);
-		if (!isset($_POST['action'])) 
-		{
-			$this->view('Post/delete', $thePost);
-		} 
-		else 
-		{
+
 			$thePost->deletePost();
-			//redirecttoaction
+			// //redirecttoaction
 			header('location:/Post/index');
-		}
+		
 	}
 }
 ?>

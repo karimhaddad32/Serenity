@@ -21,7 +21,7 @@ class Post extends Model
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Post'); 
         return $stmt->fetchAll(); 
     }
-    public function findPost($post_id) 
+    public function find($post_id) 
     {
         $stmt = self::$_connection->prepare("SELECT * FROM Post WHERE post_id = :post_id");
         $stmt->execute(['post_id' => $post_id]);
@@ -78,11 +78,8 @@ class Post extends Model
     }
     public function deletePost() 
     {
-        if ($profile_id = $_SESSION['user_id']) 
-        {
-            $stmt = self::$_connection->prepare("DELETE FROM Post WHERE post_id = :post_id");
-            $stmt->execute(['post_id'=>$post_id]); 
-        }
+        $stmt = self::$_connection->prepare("DELETE FROM Post WHERE post_id = :post_id");
+        $stmt->execute(['post_id'=>$this->post_id]); 
     }
      public function getCategories() 
     {
