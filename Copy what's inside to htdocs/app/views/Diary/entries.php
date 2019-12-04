@@ -31,22 +31,24 @@
 
 <?php
 
-foreach ($model->DiaryEntries as $diary_entry) {
-	echo "<pre>";
-	var_dump($diary_entry);
-	echo "</pre>";
-	// echo "<tr>
-	// 	<td>$diary_entry->diary_entry_id</td>
-	// 	<td>$diary_entry->diary_id</td>
-	// 	<td>$diary_entry->entry_title</td>
-	// 	<td>$diary_entry->entry</td>
-	// 	<td>$diary_entry->timestamp</td>
+foreach ($model->DiaryEntries as $diary_entry_array) {
+	$diary_entry = (object) $diary_entry_array;
+	// echo "<pre>";
+	// 	var_dump($diary_entry);
+	// echo "</pre>";
 
-	// 	<td>
-	// 		<a href='/diary_entry/edit/$diary_entry->diary_id'>Edit</a> |
-	// 		<a href='/diary_entry/delete/$diary_entry->diary_id'>Delete</a>
-	// 	</td>
-	// </tr>";
+	echo "<tr>
+		<td>$diary_entry->diary_entry_id</td>
+		<td>$diary_entry->diary_id</td>
+		<td>$diary_entry->entry_title</td>
+		<td>$diary_entry->entry</td>
+		<td>$diary_entry->timestamp</td>
+
+		<td>
+			<a href='/diary_entry/edit/$diary_entry->diary_id'>Edit</a> |
+			<a href='/diary_entry/delete/$diary_entry->diary_id'>Delete</a>
+		</td>
+	</tr>";
 }
 
 ?>

@@ -18,7 +18,7 @@ class Chat_Room_Message extends Model {
 		return $stmt->fetchAll();
     }
 
-    public function getAllChatRoomMessagesInChatRoom() {
+    public function getAllChatRoomMessagesInChatRoom($chat_room_id) {
         $stmt = self::$_connection->prepare("SELECT * FROM Chat_Room_Message WHERE chat_room_id = :chat_room_id");
         $stmt->execute(['chat_room_id'=>$chat_room_id]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Chat_Room_Message');
@@ -33,9 +33,8 @@ class Chat_Room_Message extends Model {
     }
 
     public function insert() {
-	    $stmt = self::$_connection->prepare("INSERT INTO Chat_Room_Message(first_name, last_name) VALUES(:first_name,:last_name)");
-        $stmt->execute(['first_name'=>$this->first_name,
-         'last_name'=>$this->last_name]);
+	    $stmt = self::$_connection->prepare("INSERT INTO Chat_Room_Message(chat_room_id, sender_id, message) VALUES(:chat_room_id, :sender_id, :message)");
+        $stmt->execute(['chat_room_id'=>$this->chat_room_id, 'sender_id'=>$this->sender_id, 'message'=>$this->message]);
     }
 
     public function delete() {
@@ -43,12 +42,13 @@ class Chat_Room_Message extends Model {
         $stmt->execute(['chat_room_message_id'=>$this->chat_room_message_id]);
     }
 
+/*
     public function update() {
         $stmt = self::$_connection->prepare("UPDATE Chat_Room_Message SET first_name = :first_name, last_name = :last_name WHERE chat_room_message_id = :chat_room_message_id");
         $stmt->execute(['first_name'=>$this->first_name,
          'last_name'=>$this->last_name, 'chat_room_message_id'=>$this->chat_room_message_id]);
     }
-
+*/
 }
 
 ?>
