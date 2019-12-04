@@ -9,7 +9,6 @@
 <div class="container" style="display: grid; grid-template-columns: auto;">
 	
 	<div style="display: grid;">
-
 		<form  action="/Profile/search_friends" method="post" class="form-horizontal">		
 				<div style="display: inline-flex; float: right; margin: 15px">
 			  		<input name="username"  style="margin: 5px;" type="text" placeholder="Search" class="form-control sm" />
@@ -20,12 +19,13 @@
 	</div>
 	<div>
 		
-		<table>
+		<table class="table">
 	<tr>
-		<th>Name</th>
+		<th>Profile Picture</th>
 		<th>Username</th>
 		<th>Gender</th>
 		<th>Phone Number</th>
+		<th>Controls</th>
 	</tr>
 
 <?php
@@ -37,7 +37,7 @@ foreach ($model->other_profiles as $profile) {
 			if($profile->friend_link->accepted == true){
 
 				echo "<tr>
-						<td>$profile->first_name $profile->last_name</td>
+						<td><img class='img-circle' style='max-width:100px; max-height:100px; min-width:100px; min-height:100px' src='/$profile->picture_path'></td>
 						<td>$profile->username</td>
 						<td>$profile->gender</td>
 						<td>$profile->phone_number</td>
@@ -50,7 +50,7 @@ foreach ($model->other_profiles as $profile) {
 					if($profile->friend_link->sender_id != $profile->profile_id){
 
 						echo "<tr>
-						<td>$profile->first_name $profile->last_name</td>
+						<td><img class='img-circle' style='max-width:100px; max-height:100px; min-width:100px; min-height:100px' src='/$profile->picture_path'></td>
 						<td>$profile->username</td>
 						<td>$profile->gender</td>
 						<td>$profile->phone_number</td>
@@ -62,7 +62,7 @@ foreach ($model->other_profiles as $profile) {
 
 					}else{
 						echo "<tr>
-						<td>$profile->first_name $profile->last_name</td>
+						<td><img class='img-circle' style='max-width:100px; max-height:100px; min-width:100px; min-height:100px' src='/$profile->picture_path'></td>
 						<td>$profile->username</td>
 						<td>$profile->gender</td>
 						<td>$profile->phone_number</td>
@@ -81,7 +81,7 @@ foreach ($model->other_profiles as $profile) {
 				if($profile->friend_link->sender_id == $profile->profile_id){
 
 					echo "<tr>
-						<td>$profile->first_name $profile->last_name</td>
+						<td><img class='img-circle' style='max-width:100px; max-height:100px; min-width:100px; min-height:100px' src='/$profile->picture_path'></td>
 						<td>$profile->username</td>
 						<td>$profile->gender</td>
 						<td>$profile->phone_number</td>
@@ -93,7 +93,7 @@ foreach ($model->other_profiles as $profile) {
 				}else{
 
 					echo "<tr>
-						<td>$profile->first_name $profile->last_name</td>
+						<td><img class='img-circle' style='max-width:100px; max-height:100px; min-width:100px; min-height:100px' src='/$profile->picture_path'></td>
 						<td>$profile->username</td>
 						<td>$profile->gender</td>
 						<td>$profile->phone_number</td>
@@ -111,7 +111,7 @@ foreach ($model->other_profiles as $profile) {
 				
 	}else{
 		echo "<tr>
-						<td>$profile->first_name $profile->last_name</td>
+						<td><img class='img-circle' style='max-width:100px; max-height:100px; min-width:100px; min-height:100px' src='/$profile->picture_path'></td>
 						<td>$profile->username</td>
 						<td>$profile->gender</td>
 						<td>$profile->phone_number</td>

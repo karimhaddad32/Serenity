@@ -10,6 +10,18 @@ class ProfileController extends Controller {
 		$profile = $this->model('Profile');
 		$profile = $profile->find($profile_id);
 
+
+		if($profile->profile_picture != null){
+		$picture = $this->model('Picture')->find($profile->profile_picture);
+		$profile->picture_path = $picture->path;	
+		}else{
+			$profile->picture_path = "images/default.png";
+		}
+
+
+
+		
+
 		return $this->view('Profile/index', $profile);
 			
 	}
@@ -127,17 +139,32 @@ class ProfileController extends Controller {
 			 }
 			 	foreach ($profiles as $p ) {
 
-			 		$friend_link = $this->model('friend_link')->find($_SESSION['user_id'], $p->profile_id);
-
-			 
-			 
+			 		$friend_link = $this->model('friend_link')->find($_SESSION['user_id'], $p->profile_id);			 
 			 		$p->friend_link = $friend_link;
+			 		$picture = $this->model('Picture')->find($p->profile_picture);
+			 		
+
+			 		if($picture != null){
+			 			$p->picture_path = $picture->path;
+			 		}else{
+			 			$p->picture_path = "images/default.png";
+			 		}
+
+
+
 			 	}
 
 			 		
+			 	foreach ($profiles as $friend) {
+					
+					}
 
 
+
+					// var_dump($profiles);	
 				$profile->other_profiles = $profiles;
+
+
 
 			
 				return $this->view('Profile/search_friends', $profile);

@@ -1,8 +1,8 @@
 <html>
 
 <head>
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
-	<script src="/js/bootstrap.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 		<style>
 		td, th {
 			border: 1px solid black;
@@ -21,7 +21,7 @@
 	<!-- <?php echo $model->first_name, ' ',$model->last_name; ?> -->
 </div>
 
-<table>
+<table class="table table-striped">
 	<tr>
 		<th>address_id</th>
 		<th>profile_id</th>
