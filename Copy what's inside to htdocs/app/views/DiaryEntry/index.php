@@ -1,7 +1,8 @@
 <html>
 
 <head>
-
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+	<script src="/js/bootstrap.js"></script>
 		<style>
 		td, th {
 			border: 1px solid black;
@@ -11,7 +12,6 @@
 	<title>Diaries</title>
 </head>
 <body>
-<?php $this->view('/Shared/top_nav_bar_main'); ?>
 
 	<a href="/diary/create">Create a new Diary</a> | 
 	<a href="/profile/index">Back to profile</a>

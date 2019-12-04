@@ -1,18 +1,17 @@
 <html>
 
 <head>
-	
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
 	<script src="/js/bootstrap.js"></script>
 		<style>
 		td, th {
-			border: 1px solid black;
+			/*border: 1px solid black;*/
 			padding: 10px;
 		}
 	</style>
 	<title>Messages</title>
 </head>
 <body>
-<?php $this->view('/Shared/top_nav_bar_main'); ?>
 
 	<a href="/profile/index">Back to profile</a>
 
@@ -21,13 +20,15 @@
 	<!-- <?php echo $model->first_name, ' ',$model->last_name; ?> -->
 </div>
 
-<table>
+<div class="container" style="display: grid; grid-template-columns: auto;">
+<table class="table table-striped">
 	<tr>
 		<th>sender_id</th>
 		<th>receiver_id</th>
 		<th>accepted</th>
 		<th>timestamp</th>
 		<th>relationship</th>
+		<th>actions</th>
 	</tr>
 
 <?php
@@ -60,5 +61,6 @@ foreach ($model as $friend_link) {
 ?>
 
 </table>
+</div>
 </body>
 </html>	

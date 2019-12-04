@@ -1,7 +1,8 @@
 <html>
 
 <head>
-
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+	<script src="/js/bootstrap.js"></script>
 		<style>
 		td, th {
 			border: 1px solid black;
@@ -11,7 +12,6 @@
 	<title>Chat Rooms</title>
 </head>
 <body>
-<?php $this->view('/Shared/top_nav_bar_main'); ?>
 
 	<a href="/Chat_Room/create">Create a Chat Room</a> | 
 	<a href="/profile/index">Back to profile</a>
@@ -21,7 +21,8 @@
 	<!-- <?php echo $model->first_name, ' ',$model->last_name; ?> -->
 </div>
 
-<table>
+<div class="container" style="display: grid; grid-template-columns: auto;">
+<table class="table table-striped">
 	<tr>
 		<th>chat_room_id</th>
 		<th>category_id</th>
@@ -29,6 +30,7 @@
 		<th>room_title</th>
 		<th>maximum_space</th>
 		<th>timestamp</th>
+		<th>actions</th>
 	</tr>
 
 <?php
@@ -51,5 +53,6 @@ foreach ($model as $Chat_Room) {
 ?>
 
 </table>
+</div>
 </body>
 </html>	
