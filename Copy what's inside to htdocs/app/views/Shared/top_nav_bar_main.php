@@ -3,15 +3,12 @@
 
 <nav class="navbar navbar-dark bg-dark">
 	<div>
-<<<<<<< HEAD
 		<a href= '/Profile/friends_wall' style="margin: 5px" >Friends Feed</a>
 		<a href= '/Profile/wall' style="margin: 5px" >News Feed</a>
 		<a href= '/Profile/search_friends' style="margin: 5px" >Friends</a>
-=======
 		<a href= '/Profile/wall' style="margin: 5px" >Friends Feed</a> | 
 		<a href= '/Profile/wall' style="margin: 5px" >News Feed</a> | 
 		<a href= '/Profile/search_friends' style="margin: 5px" >Friends</a> | 
->>>>>>> f93c24f5bec8e44838d44b91c083552fe9172223
 		<a href= '/Profile/index' style="margin: 5px" >View Your Profile</a>
   	</div>
  

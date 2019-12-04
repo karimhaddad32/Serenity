@@ -13,11 +13,17 @@
 </head>
 <body>
 
-	<a href="/Chat_Room/create">Create a Chat Room</a> | 
-	<a href="/profile/index">Back to profile</a>
+	<a href="/Chat_Room/index">Back to Chat Rooms</a>
 
 	<div class="container">
-	<h1 style="text-align: center">Chat</h1>
+	<h1 style="text-align: center">Chat Messages</h1>
+</div>
+
+<div class="container">
+	<form method='post'>
+		<input type='text' name='message' />
+		<input type='submit' name='action' value='Send' />
+	</form>
 </div>
 
 <table>

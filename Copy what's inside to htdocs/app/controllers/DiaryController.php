@@ -74,7 +74,7 @@ class DiaryController extends Controller {
 	public function entry_create($diary_id) {
 		if (!isset($_POST['action'])) {
 
-			$this->view('diary/entry_create');
+			$this->view('/diary/entry_create');
 
 		} else {
 			$newDiaryEntry = $this->model('Diary_Entry');
@@ -82,7 +82,6 @@ class DiaryController extends Controller {
 			$newDiaryEntry->entry_title = $_POST['entry_title'];
 			$newDiaryEntry->entry = $_POST['entry'];
 			$newDiaryEntry->insert();
-			//header('location:/diary/entries', $diary_id);
 			header('location:/diary/index');
 		}
 	}

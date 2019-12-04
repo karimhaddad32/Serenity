@@ -25,9 +25,19 @@ class Chat_RoomController extends Controller {
 	}
 
 		public function chat($chat_room_id) {
-			$chatRoomMessage = $this->model('Chat_Room_Message');
-			$chatRoomMessages = $chatRoomMessage->getAllChatRoomMessagesInChatRoom($chat_room_id);
-			$this->view('Chat_Room/chat', $chatRoomMessages);
+			if (!isset($_POST['action'])) {
+				$chatRoomMessage = $this->model('Chat_Room_Message');
+				$chatRoomMessages = $chatRoomMessage->getAllChatRoomMessagesInChatRoom($chat_room_id);
+				$this->view('Chat_Room/chat', $chatRoomMessages);
+			} else {
+				$chatRoomMessage = $this->model('Chat_Room_Message');
+				$chatRoomMessage->chat_room_id = $chat_room_id;
+				$chatRoomMessage->sender_id = $_SESSION['user_id'];
+				$chatRoomMessage->message = $_POST['message'];
+				$chatRoomMessage->insert();
+				//redirecttoaction
+				header("Refresh:0");
+			}
 		}
 /*
 	public function edit($person_id) {

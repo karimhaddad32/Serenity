@@ -32,6 +32,17 @@
 <?php
 
 foreach ($model as $friend_link) {
+	$urlParam;
+	if ($friend_link->sender_id == $_SESSION['user_id'])
+	{
+		//var_dump('sender');
+		$urlParam = $friend_link->receiver_id;
+	}
+	else if ($friend_link->receiver_id == $_SESSION['user_id'])
+	{
+		//var_dump('receiver');
+		$urlParam = $friend_link->sender_id;
+	}
 	echo "<tr>
 		<td>$friend_link->sender_id</td>
 		<td>$friend_link->receiver_id</td>
@@ -40,7 +51,7 @@ foreach ($model as $friend_link) {
 		<td>$friend_link->relationship</td>
 
 		<td>
-			<a href='/Direct_Message/message'>Message</a>
+			<a href='/Direct_Message/message/$urlParam'>Message</a>
 		</td>
 	</tr>";
 }

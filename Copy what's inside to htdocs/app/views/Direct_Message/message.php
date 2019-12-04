@@ -13,7 +13,7 @@
 </head>
 <body>
 
-	<a href="/profile/index">Back to profile</a>
+	<a href="/direct_message/index">Back to Messages</a>
 
 	<div class="container">
 	<h1 style="text-align: center">Messages</h1>
@@ -22,7 +22,7 @@
 
 <div class="container">
 	<form method='post'>
-		<input type='text' name='new message' />
+		<input type='text' name='message' />
 		<input type='submit' name='action' value='Send' />
 	</form>
 </div>
@@ -33,24 +33,27 @@
 		<th>sender</th>
 		<th>receiver</th>
 		<th>message text</th>
+		<th>time</th>
 	</tr>
 
 <?php
 
 foreach ($model as $direct_message) {
+	// echo "<pre>";
+	// 	var_dump($direct_message);
+	// echo "</pre>";
+
 	if ($direct_message->sender_id == $_SESSION['user_id']) {
-		echo "<tr style=color:FFFFFF;background-color:#0000FF>
-			<td>$direct_message->sender_id</td>
-			<td>$direct_message->receiver_id</td>
-			<td>$direct_message->message_content</td>
-		</tr>";
+		echo "<tr style=color:FFFFFF;background-color:#0000FF>";
 	} else {
-		echo "<tr style=background-color:#CCCCCC>
-			<td>$direct_message->sender_id</td>
-			<td>$direct_message->receiver_id</td>
-			<td>$direct_message->message_content</td>
-		</tr>";
+		echo "<tr style=background-color:#CCCCCC>";
 	}
+
+	echo "<td>$direct_message->sender_id</td>
+		<td>$direct_message->receiver_id</td>
+		<td>$direct_message->message_content</td>
+		<td>$direct_message->timestamp</td>
+	</tr>";
 }
 
 ?>

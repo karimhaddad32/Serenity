@@ -43,7 +43,7 @@ foreach ($model as $Chat_Room) {
 		<td>$Chat_Room->timestamp</td>
 
 		<td>
-			<a href='/Chat_Room/index'>Enter</a>
+			<a href='/Chat_Room/chat/$Chat_Room->chat_room_id'>Enter</a>
 		</td>
 	</tr>";
 }
