@@ -1,10 +1,11 @@
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
-	<script src="/js/bootstrap.js"></script>
+
 	<title>Address</title>
 </head>
 <body>
+	<?php $this->view('/Shared/top_nav_bar_main'); ?>
+
 <div class="container">
 	<h1>Delete this address?</h1>
 	<form method='post'>

@@ -12,6 +12,7 @@
 	<title>Diaries</title>
 </head>
 <body>
+<?php $this->view('/Shared/top_nav_bar_main'); ?>
 
 	<?php echo "<a href=/diary/entry_create/$model->diary_id>Create a new Diary Entry</a> |"; ?>
 	<?php echo "<a href=/diary/index/$model->diary_id>Back to Diaries</a>"; ?>

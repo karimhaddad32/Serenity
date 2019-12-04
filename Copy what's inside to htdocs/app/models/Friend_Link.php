@@ -14,8 +14,8 @@ class Friend_Link extends Model
 
 	public function getAllFriends($user_id) 
 	{
-		$stmt = self::$_connection->prepare("SELECT * FROM Friend_Link WHERE (sender_id = :sender_id OR receiver_id = :sender_id) AND relationship = :relationship"); 
-		$stmt->execute(['sender_id' => $user_id, 'relationship' => 'Friends']);
+		$stmt = self::$_connection->prepare("SELECT * FROM Friend_Link WHERE (sender_id = :sender_id OR receiver_id = :sender_id) AND relationship = :relationship AND accepted = :accepted"); 
+		$stmt->execute(['sender_id' => $user_id, 'relationship' => 'Friends', 'accepted' => '1']);
 		$stmt->setFetchMode(PDO::FETCH_CLASS, 'Friend_Link'); 
 		return $stmt->fetchAll();
 	}

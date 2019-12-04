@@ -13,9 +13,9 @@ class Recommendation extends Model {
         parent::__construct();
     }
 
-	public function getAll() {
-        $stmt = self::$_connection->prepare("SELECT * FROM Recommendation");
-        $stmt->execute();
+	public function getAll($user_id) {
+        $stmt = self::$_connection->prepare("SELECT * FROM Recommendation Where recommended_id = :recommended_id");
+        $stmt->execute(['recommended_id'=>$user_id]);
     	$stmt->setFetchMode(PDO::FETCH_CLASS, 'Recommendation');
 		return $stmt->fetchAll();
     }
@@ -31,7 +31,7 @@ class Recommendation extends Model {
 
     public function delete() {
         $stmt = self::$_connection->prepare("DELETE FROM Recommendation WHERE recommendation_id = :recommendation_id AND (recommender_id = :recommender_id OR recommended_id = :recommended_id)");
-        $stmt->execute(['recommendation_id'=>$this->recommendation_id],'recommender_id'=>$this->recommender_id],'recommended_id'=>$this->recommended_id]);
+        $stmt->execute(['recommendation_id'=>$this->recommendation_id,'recommender_id'=>$this->recommender_id,'recommended_id'=>$this->recommended_id]);
     }
 }
 ?>

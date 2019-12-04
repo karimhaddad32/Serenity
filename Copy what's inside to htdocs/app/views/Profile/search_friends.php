@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>My Profile</title>
+	<title>Search</title>
 
 </head>
 <body>

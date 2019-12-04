@@ -1,11 +1,13 @@
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+<!-- 	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
 	<script src="/js/jquery-3.2.1.min.js"></script>
-	<script src="/js/bootstrap.js"></script>
+	<script src="/js/bootstrap.js"></script> -->
 	<title>Create Profile</title>
 </head>
 <body>
+	<?php $this->view('/Shared/top_nav_bar_main'); ?>
+
 <div class="container">
 
 	<h2>Create Profile</h2>
