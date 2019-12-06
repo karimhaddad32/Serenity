@@ -1,9 +1,3 @@
-<html>
-<head>
-	<title>My Profile</title>
-
-</head>
-<body>
 
 	<?php $this->view('/Shared/top_nav_bar_main'); 	 ?>
 
@@ -25,17 +19,46 @@
 			?>
 				
 			</div>	
-			</div>
+		</div>
 		
 		<div style="display: grid; grid-template-columns: 10% 80% 10%">
 			<div>
 			
 
 			</div>
-			<div class="container">hello </div>
+			<div class="container">
+					<div class="container">
+						<h1 style="text-align: center">My Posts</h1>
+					</div>
+					
+					
+					<table>
+		
+					<?php
+					foreach ($model->posts as $post) 
+					{
+						echo 
+						"<tr>
+							<td>$post->category</td> 
+							<td>$post->post_content</td>
+							<td>$post->timestamp</td>
+				
+							<td><button onclick='myFunction($post->post_id)''>Delete</button></td>
+						</tr>";
+					}
+					?>
+				</table>
+			</div>
 			<div></div>
 		</div>
 	</div>
 
-</body>
-</html>
+<script>
+function myFunction(post_id) {
+  if(confirm("Are you sure you want to delete this post?"))
+  {
+
+  	location.href='/Post/delete/'+ post_id + '?isProfile=1';
+  }
+}
+</script>

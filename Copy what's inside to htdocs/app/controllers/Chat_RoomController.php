@@ -28,6 +28,10 @@ class Chat_RoomController extends Controller {
 			if (!isset($_POST['action'])) {
 				$chatRoomMessage = $this->model('Chat_Room_Message');
 				$chatRoomMessages = $chatRoomMessage->getAllChatRoomMessagesInChatRoom($chat_room_id);
+
+
+
+
 				$this->view('Chat_Room/chat', $chatRoomMessages);
 			} else {
 				$chatRoomMessage = $this->model('Chat_Room_Message');

@@ -53,7 +53,7 @@ class LoginController extends Controller {
 
 				//redirecttoaction
 				
-				header('location:/Profile/index');
+				header('location:/Profile/create');
 
 			}
 		}

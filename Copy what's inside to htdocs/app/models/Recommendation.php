@@ -14,7 +14,7 @@ class Recommendation extends Model {
     }
 
 	public function getAll($user_id) {
-        $stmt = self::$_connection->prepare("SELECT * FROM Recommendation Where recommended_id = :recommended_id");
+        $stmt = self::$_connection->prepare("SELECT * FROM Recommendation Left JOIN POST using(post_id)  WHERE recommender_id = :recommended_id OR recommended_id = :recommended_id");
         $stmt->execute(['recommended_id'=>$user_id]);
     	$stmt->setFetchMode(PDO::FETCH_CLASS, 'Recommendation');
 		return $stmt->fetchAll();

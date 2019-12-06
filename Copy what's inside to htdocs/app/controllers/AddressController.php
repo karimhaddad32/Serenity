@@ -14,7 +14,9 @@ class AddressController extends Controller {
 
 		if(!isset($_POST['action'])) {
 
-			$this->view('Address/create');
+			$model = $this->model('Country')->getAll();
+
+			$this->view('Address/create',$model );
 
 		} else {
 
@@ -39,6 +41,8 @@ class AddressController extends Controller {
 
 		if(!isset($_POST['action'])) {
 
+		$model = $this->model('Country')->getAll();
+		$theAddress->countries = $model;
 			$this->view('Address/edit', $theAddress);
 
 		} else {

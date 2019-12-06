@@ -13,7 +13,7 @@ class Chat_Room extends Model {
     }
 
 	public function getAll() {
-        $stmt = self::$_connection->prepare("SELECT * FROM Chat_Room");
+        $stmt = self::$_connection->prepare("SELECT * FROM Chat_Room LEFT JOIN Category Using(category_id) LEFT JOIN Profile On(owner_id = profile_id)");
         $stmt->execute();
     	$stmt->setFetchMode(PDO::FETCH_CLASS, 'Chat_Room');
 		return $stmt->fetchAll();

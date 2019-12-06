@@ -1,13 +1,6 @@
 <html>
 
 <head>
-
-		<style>
-		td, th {
-			border: 1px solid black;
-			padding: 10px;
-		}
-	</style>
 	<title>Addresses</title>
 </head>
 <body>
@@ -23,28 +16,27 @@
 
 <table class="table table-striped">
 	<tr>
-		<th>address_id</th>
-		<th>profile_id</th>
-		<th>description</th>
-		<th>street_address</th>
-		<th>city</th>
-		<th>province</th>
-		<th>postal_code</th>
-		<th>country_id</th>
+		
+		<th>Address</th>
+		<th>City</th>
+		<th>Province</th>
+		<th>Postal Code</th>
+		<th>Country</th>
+		<th>Description</th>
+		<th>Controls</th>
 	</tr>
 
 <?php
 
 foreach ($model as $address) {
 	echo "<tr>
-		<td>$address->address_id</td>
-		<td>$address->profile_id</td>
-		<td>$address->description</td>
+	
 		<td>$address->street_address</td>
 		<td>$address->city</td>
 		<td>$address->province</td>
 		<td>$address->postal_code</td>
-		<td>$address->country_id</td>
+		<td>$address->country_name</td>
+		<td>$address->description</td>
 
 		<td>
 			<a href='/address/delete/$address->address_id'>Delete</a> |

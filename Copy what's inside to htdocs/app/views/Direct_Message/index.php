@@ -1,18 +1,11 @@
 <html>
 
 <head>
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
-	<script src="/js/bootstrap.js"></script>
-		<style>
-		td, th {
-			/*border: 1px solid black;*/
-			padding: 10px;
-		}
-	</style>
+
 	<title>Messages</title>
 </head>
 <body>
-
+	<?php $this->view('/Shared/top_nav_bar_main'); 	 ?>
 	<a href="/profile/index">Back to profile</a>
 
 	<div class="container">
@@ -23,37 +16,22 @@
 <div class="container" style="display: grid; grid-template-columns: auto;">
 <table class="table table-striped">
 	<tr>
-		<th>sender_id</th>
-		<th>receiver_id</th>
-		<th>accepted</th>
-		<th>timestamp</th>
-		<th>relationship</th>
-		<th>actions</th>
+		<th>Profile Picture</th>
+		<th>Friend Name</th>
+
+		<th>Message</th>
 	</tr>
 
 <?php
 
 foreach ($model as $friend_link) {
-	$urlParam;
-	if ($friend_link->sender_id == $_SESSION['user_id'])
-	{
-		//var_dump('sender');
-		$urlParam = $friend_link->receiver_id;
-	}
-	else if ($friend_link->receiver_id == $_SESSION['user_id'])
-	{
-		//var_dump('receiver');
-		$urlParam = $friend_link->sender_id;
-	}
+		
 	echo "<tr>
-		<td>$friend_link->sender_id</td>
-		<td>$friend_link->receiver_id</td>
-		<td>$friend_link->accepted</td>
-		<td>$friend_link->timestamp</td>
-		<td>$friend_link->relationship</td>
+		<td><img class='img-circle' style='max-width:100px; max-height:100px; min-width:100px; min-height:100px' src='/$friend_link->picture_path'></td>
+		<td>$friend_link->friend_name</td>
 
 		<td>
-			<a href='/Direct_Message/message/$urlParam'>Message</a>
+			<a href='/Direct_Message/message/$friend_link->friend_id'>Send a Message</a>
 		</td>
 	</tr>";
 }

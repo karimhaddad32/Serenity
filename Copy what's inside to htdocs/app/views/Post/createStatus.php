@@ -1,10 +1,10 @@
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
-	<script src="/js/bootstrap.js"></script>
+
 	<title>Create a Status</title>
 </head>
 <body style="text-align: center">
+	<?php $this->view('/Shared/top_nav_bar_main'); ?>
 <div class="container">
 	<h1 style="text-align: center; background-color: #B0E0E6">Create a New Status</h1>
 	<form method='post' style="background-color: pink; border-bottom-right-radius: 30px; border-top-right-radius: 30px; border-bottom-left-radius: 30px; border-top-left-radius: 30px; padding-top: 10px; padding-bottom: 10px">
@@ -24,7 +24,7 @@
 		<br>
 		<br>
 		<input type='submit' name='action' value='Post' style="background-color: #D8BFD8; border-radius: 20px; padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px" />
-		<a href="/post/index">Cancel</a>
+		<a href="/profile/friends_wall">Cancel</a>
 	</form>
 </div>
 </body>

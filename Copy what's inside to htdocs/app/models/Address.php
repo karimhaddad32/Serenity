@@ -15,14 +15,14 @@ class Address extends Model{
     }
 
 	public function getAll() {
-        $stmt = self::$_connection->prepare("SELECT * FROM Address WHERE profile_id = :profile_id");
+        $stmt = self::$_connection->prepare("SELECT * FROM Address LEFT JOIN Country using(country_id) WHERE profile_id = :profile_id");
         $stmt->execute(['profile_id' => $this->profile_id]);
     	$stmt->setFetchMode(PDO::FETCH_CLASS, 'Address');
 		return $stmt->fetchAll();
     }
 
     public function find($address_id) {
-        $stmt = self::$_connection->prepare("SELECT * FROM Address WHERE address_id = :address_id");
+        $stmt = self::$_connection->prepare("SELECT * FROM Address LEFT JOIN Country using(country_id) WHERE address_id = :address_id");
         $stmt->execute(['address_id' => $address_id]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Address');
         return $stmt->fetch();

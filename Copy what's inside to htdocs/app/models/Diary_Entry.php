@@ -20,6 +20,7 @@ class Diary_Entry extends Model {
     }
 
     public function find($diary_entry_id) {
+
         $stmt = self::$_connection->prepare("SELECT * FROM Diary_Entry WHERE diary_entry_id = :diary_entry_id");
         $stmt->execute(['diary_entry_id'=>$diary_entry_id]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Diary_Entry');
@@ -40,11 +41,9 @@ class Diary_Entry extends Model {
     }
 
     public function update() {
-        $stmt = self::$_connection->prepare("UPDATE Diary_Entry SET diary_id = :diary_id, entry_title = :entry_title, entry = :entry, timestamp = :timestamp WHERE diary_entry_id = :diary_entry_id");
-        $stmt->execute(['diary_id'=>$this->diary_id,
-                        'entry_title'=>$this->entry_title,
-                        'entry'=>$this->entry,
-                        'timestamp'=>$this->timestamp]);
+        $stmt = self::$_connection->prepare("UPDATE Diary_Entry SET entry_title = :entry_title, entry = :entry WHERE diary_entry_id = :diary_entry_id");
+        $stmt->execute(['entry_title'=>$this->entry_title,
+                        'entry'=>$this->entry, 'diary_entry_id' => $this->diary_entry_id]);
     }
 
 }

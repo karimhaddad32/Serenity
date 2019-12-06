@@ -4,3 +4,6 @@
     Select image to upload:
     <input type="file" name="path" id="path">
     <input type="submit" name="action" value="Upload Image">
+</form>
+
+<a href="/profile/index">Cancel</a>

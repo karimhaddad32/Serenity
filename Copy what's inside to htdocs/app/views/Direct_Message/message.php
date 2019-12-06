@@ -1,19 +1,5 @@
-<html>
 
-<head>
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
-	<script src="/js/bootstrap.js"></script>
-		<style>
-		td, th {
-			/*border: 1px solid black;*/
-			padding: 10px;
-			margin-top: 3px;
-		}
-	</style>
-	<title>Messages</title>
-</head>
-<body>
-
+<?php $this->view('/Shared/top_nav_bar_main'); 	 ?>
 	<a href="/direct_message/index">Back to Messages</a>
 
 	<div class="container">
@@ -39,7 +25,7 @@
 
 <?php
 
-foreach ($model as $direct_message) {
+foreach ($model->messages as $direct_message) {
 	// echo "<pre>";
 	// 	var_dump($direct_message);
 	// echo "</pre>";
@@ -59,5 +45,115 @@ foreach ($model as $direct_message) {
 
 </table>
 </div>
-</body>
-</html>	
+
+<?php 
+
+// $current_user_id = $_SESSION['user_id'];
+
+// echo  "<script>
+//     \$(document).ready(function () {
+//         var element = document.getElementById('messages_panel');
+//         element.scrollTop = element.scrollHeight;
+
+//         \$('#btn_send').unbind().click(function () {
+//         	console.log('asd');
+//             var text = document.getElementById('text');
+//             var msg = {};
+//             msg.message1 = text.value;
+//             msg.receiver_id = $model->other_profile;
+//             msg.sender_id = $current_user_id;
+
+//             console.log(msg);
+
+//             \$.ajax({
+//                 type: 'POST',
+//                 url: '/Direct_Message/message',
+//                 data: '{msg: msg}',
+//                 dataType: 'json',
+//                 contentType: 'application/json; charset=utf-8',
+//                 success: function (res) {
+
+//                     if (res != null) {
+//                     console.log(res);
+//                     var chat = document.getElementById('messages_panel');
+//                         console.log(chat);
+
+//                         var newText = '<div class='message last' style = 'display:inline-flex' ><div class='wrap1'>'
+//                             + text.value + '</div><p style='font-size:10px;margin:0px 0px 5px 5px;'>'
+//                             + res.timestamp + '</p></div>'
+//                         var wrapper = document.createElement('div');
+//                         wrapper.className = 'mine messages';
+//                         wrapper.innerHTML = newText;
+//                         if (chat.children.length == 0) {
+//                              chat.appendChild(wrapper);
+//                         } else {
+//                                if (chat.children[chat.children.length - 1].className == 'mine messages') {
+//                             chat.children[chat.children.length - 1].firstElementChild.classList.remove('last');
+//                             }
+//                             chat.appendChild(wrapper);
+//                         }
+
+//                     element.scrollTop = element.scrollHeight;
+//                         text.value = '';
+//                          }
+//                 },
+//                 error: function () {
+//                    //nothing
+//                 }
+//             });
+    
+//         });
+//     });
+// </script>";
+
+?>
+
+
+<!-- <div class="chat" style="overflow:auto; overflow-x: hidden; height:400px;max-height: 400px; background-color:lightblue " id="messages_panel" > -->
+
+   <?php  
+
+   // foreach ($model->messages as $message)
+   //  {
+   //      if ($message->sender_id == $current_user_id)
+   //      {
+   //          echo "<script>
+   //              var chat = document.getElementById('messages_panel');
+
+   //              if (chat.children[chat.children.length - 2].className == 'mine messages') {
+   //                  chat.children[chat.children.length - 2].firstElementChild.classList.remove('last');
+   //              }
+   //          </script>
+   //          <div class='mine messages' >
+   //              <div class='message last' style='display:inline-flex;'>
+   //                  <div class='wrap1'>$message->message_content</div><p style='font-size:10px;margin:0px 0px 5px 5px;'>$message->timestamp</p>
+   //              </div>
+   //          </div>";
+   //      }
+   //      else
+   //      {
+   //      	echo "<script>
+   //              var chat = document.getElementById('messages_panel');
+
+   //              if (chat.children[chat.children.length - 2].className == 'yours messages') {
+   //                  chat.children[chat.children.length - 2].firstElementChild.classList.remove('last');
+   //              }
+   //          </script>
+   //          <div class='yours messages'>
+   //              <div class='message last' style='display:inline-flex; color:black'>
+   //                  <p style='font-size:10px;margin:0px 5px 5px 0px;  '>$message->timestamp</p>
+   //                  <div class='wrap1'>$message->message_content</div>
+   //              </div>
+   //          </div>";
+            
+   //      }
+
+   //  }
+     ?>
+<!-- </div> -->
+
+<!-- 
+<input type="text" name="message" class="" placeholder="Message here" id="text" style="width:100%; margin:5px; min-width:80%; position:sticky">
+<input id="btn_send" type="submit" name="message" class="btn btn-primary" style="margin: 5px" value="Send" >
+
+ -->

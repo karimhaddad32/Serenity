@@ -6,35 +6,55 @@
 		<div class="container" style="display: grid; grid-template-columns: auto;">
 		<h1 style="text-align: center">Recommendations</h1>
 			<div style="display: grid; grid-template-columns: 50% 50%;">
-				<div align="center" class="table-striped" style="word-break: break-all; overflow: auto; max-height: 600px;border-right: solid;">
-					<h3>My recommendations</h3>
+				<div align="center" class="table-striped" style="word-break: break-all; overflow: auto; max-height: 600px;border-right: solid; overflow: scroll;">
+					<h3>Recommended to Me</h3>
 					<table class="table">
 						<tr>
-							<th></th>
-							<th></th>
+							<th>Recommended by</th>
+							<th>Post Category</th>
+							<th>Go To</th>
 							<th></th>
 						</tr>
-
-						<tr>
-							<td>asd</td>
-							<td>asd</td>
-							<td>asd</td>
-						</tr>
+					<?php  
+					foreach ($model as $recom) {
+						if($recom->recommender_id != $_SESSION['user_id']){	
+							$name = $recom->other_profile->username;	
+							$category = $recom->category->category_type;			
+							echo "<tr>
+							<td>$name</td>
+							<td>$category</td>
+							<td><a href ='/Post/detail/$recom->post_id' >Go To</a> </td>
+						</tr>";
+						}
+					}
+						
+					?>
+						
 					</table>
 				</div>
-				<div align="center" class="table-striped" style="word-break: break-all; overflow: auto; max-height: 600px;border-left: : solid;">
-					<h3>recommendation history</h3>
+				<div align="center" class="table-striped" style="word-break: break-all; overflow: auto; max-height: 600px;border-left: solid; overflow: scroll;">
+					<h3>Recommended by Me</h3>
 					<table class="table">
 						<tr>
-							<th></th>
-							<th></th>
-							<th></th>
+							<th>Recommended to</th>
+							<th>Post Category</th>
+							<th>Go to</th>
 						</tr>
-						<tr>
-							<td>asd</td>
-							<td>asd</td>
-							<td>asd</td>
-						</tr>
+						<?php  
+					foreach ($model as $recom) {
+
+						if($recom->recommender_id == $_SESSION['user_id']){		
+						$name = $recom->current_profile->username;	
+						$category = $recom->category->category_type;		
+							echo "<tr>
+							<td>$name</td>
+							<td>$category</td>
+							<td><a href ='/Post/detail/$recom->post_id' >Go To</a> </td>
+						</tr>";
+						}
+					}
+						
+					?>
 					</table>
 				</div>
 				

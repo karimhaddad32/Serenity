@@ -16,7 +16,7 @@ class Post extends Model
     }
     public function getAllPosts() 
     {
-        $stmt = self::$_connection->prepare("SELECT * FROM Post WHERE profile_id = :profile_id");
+        $stmt = self::$_connection->prepare("SELECT * FROM Post WHERE profile_id = :profile_id Order By timestamp Desc");
         $stmt->execute(['profile_id' => $this->profile_id]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Post'); 
         return $stmt->fetchAll(); 
@@ -88,5 +88,24 @@ class Post extends Model
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Category'); 
         return $stmt->fetchAll(); 
     }
+
+     public function getPublicPosts() 
+    {
+        $stmt = self::$_connection->prepare("SELECT * FROM Post WHERE type = :type1 or type = :type2 Order By timestamp Desc");
+        $stmt->execute(['type1' => 'Quote Post', 'type2' => 'Public Blog']);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Post'); 
+        return $stmt->fetchAll(); 
+    }
+
+      public function getPrivatePosts($profile_id) 
+    {
+        $sql = "SELECT * FROM Post WHERE profile_id IN (SELECT sender_id FROM Friend_Link Where (sender_id = :sender_id OR receiver_id = :sender_id) AND accepted = :accepted) OR profile_id IN (SELECT receiver_id FROM Friend_Link Where (sender_id = :sender_id OR receiver_id = :sender_id) AND accepted = :accepted) Order By timestamp Desc";
+        $stmt = self::$_connection->prepare($sql);
+        $stmt->execute(['sender_id' => $profile_id, 'accepted' => 1 ]);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Post'); 
+        return $stmt->fetchAll(); 
+    }
+
+
 }
 ?>

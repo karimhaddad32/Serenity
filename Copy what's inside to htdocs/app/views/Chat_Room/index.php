@@ -1,19 +1,11 @@
 <html>
 
 <head>
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
-	<script src="/js/bootstrap.js"></script>
-		<style>
-		td, th {
-			border: 1px solid black;
-			padding: 10px;
-		}
-	</style>
 	<title>Chat Rooms</title>
 </head>
 <body>
-
-	<a href="/Chat_Room/create">Create a Chat Room</a> | 
+<?php $this->view('/Shared/top_nav_bar_main'); 	 ?>
+	<a class="" href="/Chat_Room/create">Create a Chat Room</a> | 
 	<a href="/profile/index">Back to profile</a>
 
 	<div class="container">
@@ -24,24 +16,22 @@
 <div class="container" style="display: grid; grid-template-columns: auto;">
 <table class="table table-striped">
 	<tr>
-		<th>chat_room_id</th>
-		<th>category_id</th>
-		<th>owner_id</th>
-		<th>room_title</th>
-		<th>maximum_space</th>
-		<th>timestamp</th>
-		<th>actions</th>
+	
+		<th>Category</th>
+		<th>Owner</th>
+		<th>Title</th>
+		<th>Created on</th>
+		<th>Enter Chat</th>
 	</tr>
 
 <?php
 
 foreach ($model as $Chat_Room) {
 	echo "<tr>
-		<td>$Chat_Room->chat_room_id</td>
-		<td>$Chat_Room->category_id</td>
-		<td>$Chat_Room->owner_id</td>
+		<td>$Chat_Room->category_type</td>
+		<td>$Chat_Room->username</td>
 		<td>$Chat_Room->room_title</td>
-		<td>$Chat_Room->maximum_space</td>
+	
 		<td>$Chat_Room->timestamp</td>
 
 		<td>

@@ -12,9 +12,9 @@ class Comment extends Model {
         parent::__construct();
     }
 
-	public function getAll() {
-        $stmt = self::$_connection->prepare("SELECT * FROM Comment");
-        $stmt->execute();
+	public function getAll($post_id) {
+        $stmt = self::$_connection->prepare("SELECT * FROM Comment Where post_id = :post_id");
+        $stmt->execute(['post_id' => $post_id]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Comment');
         return $stmt->fetchAll();
     }

@@ -18,9 +18,16 @@ class ProfileController extends Controller {
 			$profile->picture_path = "images/default.png";
 		}
 
-
+		$post = $this->model('Post');
+		$post->profile_id = $profile_id;
+		$posts = $post->getAllPosts();
 
 		
+		$profile->posts = $posts;
+
+		foreach ($profile->posts as $post) {
+			$post->category = $this->model('Category')->getCategory($post->category_id)->category_type;
+		}
 
 		return $this->view('Profile/index', $profile);
 			
@@ -95,7 +102,7 @@ class ProfileController extends Controller {
 				if($profile->profile_picture == null){
 
 					$picture->path = $target_path;
-					var_dump($picture);
+				
 					$picture->insert();
 					$picture = $picture->getInsertedPicture();
 					
@@ -149,16 +156,7 @@ class ProfileController extends Controller {
 			 		}else{
 			 			$p->picture_path = "images/default.png";
 			 		}
-
-
-
 			 	}
-
-			 		
-			 	foreach ($profiles as $friend) {
-					
-					}
-
 
 
 					// var_dump($profiles);	
@@ -180,7 +178,19 @@ class ProfileController extends Controller {
 
 		if($profile != null){
 				$_SESSION['profile_id'] = $profile->profile_id;
-				return $this->view('Profile/wall');
+
+					$post = $this->model('Post');
+					$post->profile_id = $profile_id;
+					$posts = $post->getPublicPosts();
+					$profile->posts = $posts;
+					$counter = 0;
+					foreach ($posts  as $p) {
+						$profile->posts[$counter++] = $this->getAllPostsDetails($p->post_id);
+					}
+
+				
+
+				return $this->view('Profile/wall', $profile);
 			}
 			else{
 				$_SESSION['profile_id'] = null;
@@ -197,7 +207,16 @@ class ProfileController extends Controller {
 		if($profile != null)
 		{
 			$_SESSION['profile_id'] = $profile->profile_id;
-			return $this->view('Profile/friends_wall');
+
+			$post = $this->model('Post');
+			$post->profile_id = $profile_id;
+			$posts = $post->getPrivatePosts($profile->profile_id);
+
+			$counter = 0;
+			foreach ($posts  as $p) {
+				$profile->posts[$counter++] = $this->getAllPostsDetails($p->post_id);
+			}
+			return $this->view('Profile/friends_wall', $profile);
 		}
 		else
 		{
@@ -259,5 +278,50 @@ class ProfileController extends Controller {
 			header('location:/Profile/index');
 		}
 	}
+
+
+	public function getAllPostsDetails($post_id) 
+		{
+		
+			$thePost = $this->model('Post')->find($post_id);
+
+			$thePost->post_reactions = $this->model('Post_Reaction')->getAllPostReactions($post_id);
+
+
+			foreach ($thePost->post_reactions as $post_reaction) {
+				$reaction = $this->model('Reaction_type')->getReaction($post_reaction->reaction_type_id)->reaction_description;
+				$post_reaction->reaction_description = $reaction;
+			}
+
+			$thePost->category_type = $this->model('Category')->getCategory($thePost->category_id)->category_type;
+
+
+			$comments = $this->model('Comment')->getAll($post_id);
+
+			foreach ($comments as $comment) {
+ 							
+				$comment_reactions = $this->model('Comment_Reaction')->getAll($comment->comment_id);
+
+				$comment->reactions = $comment_reactions ;
+
+				foreach ($comment->reactions as $r) {
+					$reaction = $this->model('Reaction_type')->getReaction($r->reaction_type_id)->reaction_description;
+					$r->reaction_description = $reaction;
+				}
+ 			}
+
+ 			$thePost->comments =  $comments;
+
+
+			return $thePost;
+		}
+
+		public function preFunction($object){
+
+		echo "<pre>";
+			var_dump($object);
+		echo "</pre>";
+
+		}
 }
 ?>

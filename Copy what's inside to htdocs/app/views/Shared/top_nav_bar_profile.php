@@ -7,6 +7,8 @@
 		<a href ='/diary/index' style="margin: 10px">View diaries</a> 
 
 	</div>
+	<div>
+	
 
 	<div>
 		<a href="/Profile/upload_picture" >Upload a profile picture</a>

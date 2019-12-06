@@ -7,6 +7,22 @@ class RecommendationController extends Controller
 	{
 		$recommendtions = $this->model('Recommendation')->getAll($_SESSION['user_id']);
 
+		foreach ($recommendtions as $recom) {
+			if($recom->recommender_id == $_SESSION['user_id']){
+				$recom->current_profile = $this->model('Profile')->find($recom->recommender_id);
+ 				$recom->other_profile = $this->model('Profile')->find($recom->recommended_id);	
+			}else{
+				$recom->current_profile = $this->model('Profile')->find($recom->recommended_id);
+ 				$recom->other_profile = $this->model('Profile')->find($recom->recommender_id);	
+			}
+			
+			$recom->category = $this->model('Category')->getCategory($recom->category_id);
+			
+		}
+
+
+
+
 		return $this->view('Recommendation/index', $recommendtions);
 	}
 
@@ -23,7 +39,7 @@ class RecommendationController extends Controller
 
 			foreach ($friends as $friend) {
 
-				$recommended_profile = $this->model('Profile')->find(($friend->sender_id == $_SESSION['user_id'] ? $friend->receiver_id : $friend->receiver_id));
+				$recommended_profile = $this->model('Profile')->find(($friend->sender_id == $_SESSION['user_id'] ? $friend->receiver_id : $friend->sender_id));
 
 				$friend->username = $recommended_profile->username;
 				$friend->profile_id = $recommended_profile->profile_id;
@@ -31,15 +47,19 @@ class RecommendationController extends Controller
 
 			$recom_post->friends = $friends;
 
+			
+
 		
 
 			return $this->view('Recommendation/create', $recom_post);
 		}else{
 
+
+
 			$recomm = $this->model('Recommendation');
 			$recomm->recommender_id = $profile->profile_id;
 			$recomm->recommended_id = $_POST['recommended_id'];
-			$recomm->post_id = $_POST['post_id'] ;
+			$recomm->post_id = $post_id ;
 
 			$recomm->insert();
 
@@ -50,6 +70,7 @@ class RecommendationController extends Controller
 			}
 
 		}else{
+	
 			header('location:/Recommendation/index');
 		}
 

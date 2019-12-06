@@ -6,6 +6,10 @@ class DiaryController extends Controller {
 		$diary = $this->model('Diary');
 		$diary->profile_id = $_SESSION['user_id'];
 		$diaries = $diary->getAll();
+		
+		foreach ($diaries as $d) {
+			$d->category_type = $this->model('Category')->getCategory($d->category_id)->category_type;
+		}
 
 		return $this->view('diary/index', $diaries);
 	}
@@ -32,14 +36,18 @@ class DiaryController extends Controller {
 
 		$diary = $this->model('Diary')->find($diary_id);
 
-		if(!isset($_POST['action'])) {
+		$categories = $this->model('Category')->getAll();
 
+		if(!isset($_POST['action'])) {
+			$diary->categories = $categories;
 			$this->view('diary/edit', $diary);
 
 		} else {
 
         	$diary->diary_title = $_POST['diary_title'];
-        	$diary->category_id = $_POST['category_id'];
+        	$diary->category_id = $_POST['category'];
+      
+
 
 			$diary->update();
 
@@ -52,13 +60,9 @@ class DiaryController extends Controller {
 
 	public function delete($diary_id) {
 		$diary = $this->model('Diary')->find($diary_id);
-		if (!isset($_POST['action'])) {
-			$this->view('diary/delete', $diary);
-		} else {
-			$diary->delete();
+				$diary->delete();
 			header('location:/diary/index');
-		}
-
+		
 	}
 
 	public function entries($diary_id) {
@@ -84,6 +88,37 @@ class DiaryController extends Controller {
 			$newDiaryEntry->insert();
 			header('location:/diary/index');
 		}
+	}
+
+	public function entry_edit($diary_entry_id) {
+
+		$diaryEntry = $this->model('Diary_Entry')->find($diary_entry_id);
+
+		if (!isset($_POST['action'])) {
+
+
+			$this->view('/diary_entry/edit', $diaryEntry);
+
+		} else {
+
+		
+			$diaryEntry->diary_id = $diaryEntry->diary_id;
+			$diaryEntry->entry_title = $_POST['entry_title'];
+			$diaryEntry->entry = $_POST['entry'];
+			$diaryEntry->update();
+		
+			header('location:/Diary/entries/' . $diaryEntry->diary_id);
+		}
+	}
+
+	public function entry_delete($diary_entry_id) {
+
+		$diaryEntry = $this->model('Diary_Entry')->find($diary_entry_id);
+
+		$diaryEntry->delete();
+		
+		header('location:/Diary/entries/' . $diaryEntry->diary_id);
+		
 	}
 
 }

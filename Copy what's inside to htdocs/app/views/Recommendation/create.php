@@ -9,9 +9,10 @@
 	
 	?>
 
-	<form method='post'>
+	<form method='post' action='/Recommendation/create/<?php echo "$model->post_id" ?>'>
 		Who do you want to recommend?</br>
-		<select name="category_id">
+
+		<select name="recommended_id">
 			<?php
 				foreach ($model->friends as $friend) 
 				{	

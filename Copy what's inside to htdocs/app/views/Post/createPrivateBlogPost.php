@@ -1,10 +1,9 @@
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
-	<script src="/js/bootstrap.js"></script>
 	<title>Create a Blog Post</title>
 </head>
 <body>
+	<?php $this->view('/Shared/top_nav_bar_main'); ?>
 <div class="container">
 	<h1>Create a New Private Blog Post</h1>
 	<form method='post'>
@@ -25,7 +24,7 @@
 		<input type='text' name='reference_link' /></label>
 		<br>
 		<input type='submit' name='action' value='Submit Post' />
-		<a href="/post/index">Cancel</a>
+		<a href="/profile/friends_wall">Cancel</a>
 	</form>
 </div>
 </body>
