@@ -22,12 +22,11 @@ class ProfileController extends Controller {
 		$post->profile_id = $profile_id;
 		$posts = $post->getAllPosts();
 
-		
 		$profile->posts = $posts;
-
-		foreach ($profile->posts as $post) {
-			$post->category = $this->model('Category')->getCategory($post->category_id)->category_type;
-		}
+					$counter = 0;
+					foreach ($posts  as $p) {
+						$profile->posts[$counter++] = $this->getAllPostsDetails($p->post_id);
+					}
 
 		return $this->view('Profile/index', $profile);
 			

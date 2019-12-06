@@ -29,7 +29,7 @@
 		<input type="password" class="form-control" name="password_confirmation" id="password_confirmation" />
 	</div>
 	<div class="form-group">
-		<input type="submit" name="action" value="Register" />
+		<input type="submit" name="action" value="Register" class="btn btn-success" />
 	</div>
 	<?php if(isset($model['error']))
 			echo "<div class='alert alert-danger' role='alert'>$model[error]</div>";

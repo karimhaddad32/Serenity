@@ -20,11 +20,11 @@
 		<br>
 		<br>
 		<label style="font-size: 16px; text-align: center">What do you want to say?<br>
-		<input type='text' name='post_content' style="height: 40px; width: 500px" /></label>
+		<textarea type='text' name='post_content' style="height: 600px; width: 500px">  </textarea></label>
 		<br>
 		<br>
 		<input type='submit' name='action' value='Post' style="background-color: #D8BFD8; border-radius: 20px; padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px" />
-		<a href="/profile/friends_wall">Cancel</a>
+		<a href="/profile/friends_wall" class="btn btn-danger" style=" border-radius: 20px;">Cancel</a>
 	</form>
 </div>
 </body>

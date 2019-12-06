@@ -3,9 +3,9 @@
 
    
 
-<form  action="/Post/createQuote" method="post" enctype="multipart/form-data">
+<form  action="/Post/createQuote" method="post" enctype="multipart/form-data" class="form-horizontal container">
 	<label>Category of post: </label>
-	<select name="category_id">
+	<select name="category_id" class="form-control">
 		<?php
 			foreach ($model as $category) 
 			{
@@ -16,8 +16,8 @@
 
 	<br>	
 	 Select image to upload:
-	<input type="file" name="path" id="path">   	
-	<br>
-	<input type='submit' name='action' value='Submit Post' />
-	<a href="/Profile/wall">Cancel</a>
+	<input style="margin: 15px" type="file" name="path" id="path" >   	
+	<br >
+	<input type='submit' name='action' value='Submit Post' class="btn btn-success"  />
+	<a href="/Profile/wall" class="btn btn-danger">Cancel</a>
 </form>

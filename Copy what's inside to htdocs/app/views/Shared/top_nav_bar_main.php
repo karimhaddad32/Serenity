@@ -10,6 +10,8 @@
 		<a href= '/Profile/index' style="margin: 5px" >View Your Profile</a>
 		<a href= '/Recommendation/index' style="margin: 5px" >Recommendations</a>
   	</div>
+
+  	<div><h4 style="color: blue">Serenity</h4></div>
  
   	<div style="float: right;">
   		<a href= '/Direct_Message/index' style="margin: 5px" >Direct Messages</a> | 

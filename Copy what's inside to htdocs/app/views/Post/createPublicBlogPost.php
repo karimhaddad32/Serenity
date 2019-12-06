@@ -7,9 +7,9 @@
 	<?php $this->view('/Shared/top_nav_bar_main'); ?>
 <div class="container">
 	<h1>Create a New Public Blog Post</h1>
-	<form method='post'>
+	<form method='post' class="form-horizontal">
 		<label>Category of post: </label>
-		<select name="category_id">
+		<select name="category_id" class="form-control">
 			<?php
 				foreach ($model as $category) 
 				{
@@ -19,13 +19,10 @@
 		</select>
 		<br>
 		<label>What do you want to say?<br>
-		<input type='text' name='post_content' /></label>
+		<textarea type='text' name='post_content' style="height: 400px; width: 500px"> </textarea>
 		<br>
-		<label>Any references? (include links here)<br>
-		<input type='text' name='reference_link' /></label>
-		<br>
-		<input type='submit' name='action' value='Submit Post' />
-		<a href="/profile/wall">Cancel</a>
+		<input type='submit' name='action' value='Submit Post'class="btn btn-success" />
+		<a href="/profile/wall" class="btn btn-danger">Cancel</a>
 	</form>
 </div>
 </body>

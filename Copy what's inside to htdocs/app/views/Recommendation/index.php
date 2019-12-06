@@ -44,7 +44,7 @@
 					foreach ($model as $recom) {
 
 						if($recom->recommender_id == $_SESSION['user_id']){		
-						$name = $recom->current_profile->username;	
+						$name = $recom->other_profile->username;	
 						$category = $recom->category->category_type;		
 							echo "<tr>
 							<td>$name</td>

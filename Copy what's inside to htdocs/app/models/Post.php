@@ -23,7 +23,7 @@ class Post extends Model
     }
     public function find($post_id) 
     {
-        $stmt = self::$_connection->prepare("SELECT * FROM Post WHERE post_id = :post_id");
+        $stmt = self::$_connection->prepare("SELECT * FROM Post LEFT JOIN PICTURE using (picture_id) WHERE post_id = :post_id ");
         $stmt->execute(['post_id' => $post_id]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Post');
         return $stmt->fetch(); 

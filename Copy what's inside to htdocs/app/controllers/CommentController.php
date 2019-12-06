@@ -10,9 +10,9 @@ class CommentController extends Controller {
 			$comment->profile_id = $_SESSION['user_id'];
 			$comment->post_id = $post_id;
 			$comment->comment_content = $_POST['comment_content'];
-			$comment->timestamp = 0;
+		
 			$comment->insert();
-			header('location:/Profile/index');
+			header('location:/Profile/wall');
 		}
 	}
 

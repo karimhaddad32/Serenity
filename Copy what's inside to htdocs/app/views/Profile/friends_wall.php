@@ -21,40 +21,17 @@
 
 			</div>
 			<div class="container">
-					<div class="container">
-						<h1 style="text-align: center"></h1>
-					</div>
+				
 					
-					
-					<table>
-		
 					<?php
-					if(isset($model->posts)){
 					foreach ($model->posts as $post) 
 					{
-						if($post->profile_id == $_SESSION['user_id']){
-
-							echo 
-						"<tr>
-							<td>$post->category_type</td> 
-							<td>$post->post_content</td>
-							<td>$post->timestamp</td>
-							<td><button onclick='myFunction($post->post_id)'>Delete</button></td>
-						</tr>";
-						}else{
-							echo 
-						"<tr>
-							<td>$post->category_type</td> 
-							<td>$post->post_content</td>
-							<td>$post->timestamp</td>
-					
-						</tr>";
-						}
-						
-					}
+							 $this->view('/Profile/post', $post ); 
 					}
 					?>
-				</table>
+					
+					
+						
 			</div>
 			<div></div>
 		</div>

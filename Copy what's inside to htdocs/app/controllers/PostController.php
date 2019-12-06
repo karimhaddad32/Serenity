@@ -192,7 +192,7 @@ class PostController extends Controller
 		
 		$thePost = $this->getAllPostsDetails($post_id);
 		
-		$this->view('/Profile/post', $thePost ); 
+		$this->view('/Post/detail', $thePost ); 
 	}
 
 		public function getAllPostsDetails($post_id) 
@@ -208,7 +208,7 @@ class PostController extends Controller
 				$post_reaction->reaction_description = $reaction;
 			}
 
-			$thePost->category = $this->model('Category')->getCategory($thePost->category_id)->category_type;
+			$thePost->category_type = $this->model('Category')->getCategory($thePost->category_id)->category_type;
 
 			$comments = $this->model('Comment')->getAll($post_id);
 

@@ -23,10 +23,10 @@
 			echo "<div class='alert alert-danger' role='alert'>$model[error]</div>";
 	?>
 	<div class="form-group">
-		<input type="submit" name="action" value="Login" />
+		<input type="submit" name="action" value="Login" class="btn btn-success"/>
 	</div>
 	
-	Don't have an account? <a href= '/Login/register'>Register</a>
+	Don't have an account? <a href= '/Login/register' class="btn btn-primary">Register</a>
 	</form>
 </div>
 </body></html>

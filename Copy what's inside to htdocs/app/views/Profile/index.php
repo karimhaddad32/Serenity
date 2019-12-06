@@ -27,27 +27,14 @@
 
 			</div>
 			<div class="container">
-					<div class="container">
-						<h1 style="text-align: center">My Posts</h1>
-					</div>
-					
-					
-					<table>
-		
-					<?php
+				
+			<?php
 					foreach ($model->posts as $post) 
 					{
-						echo 
-						"<tr>
-							<td>$post->category</td> 
-							<td>$post->post_content</td>
-							<td>$post->timestamp</td>
-				
-							<td><button onclick='myFunction($post->post_id)''>Delete</button></td>
-						</tr>";
+							 $this->view('/Profile/post', $post ); 
 					}
-					?>
-				</table>
+					?>	
+
 			</div>
 			<div></div>
 		</div>

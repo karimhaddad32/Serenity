@@ -28,7 +28,9 @@ class RecommendationController extends Controller
 
 	public function create($post_id){
 
-		$recom_post = $this->model('Post')->find($post_id);
+		$recom_post = $this->getAllPostsDetails($post_id);
+
+		
 		if($recom_post != null){
 
 		$profile = $this->model('Profile')->find($_SESSION['user_id']);
@@ -46,10 +48,6 @@ class RecommendationController extends Controller
 			}
 
 			$recom_post->friends = $friends;
-
-			
-
-		
 
 			return $this->view('Recommendation/create', $recom_post);
 		}else{
@@ -78,6 +76,50 @@ class RecommendationController extends Controller
 
 
 	}
+
+	public function getAllPostsDetails($post_id) 
+		{
+		
+			$thePost = $this->model('Post')->find($post_id);
+
+			$thePost->post_reactions = $this->model('Post_Reaction')->getAllPostReactions($post_id);
+
+
+			foreach ($thePost->post_reactions as $post_reaction) {
+				$reaction = $this->model('Reaction_type')->getReaction($post_reaction->reaction_type_id)->reaction_description;
+				$post_reaction->reaction_description = $reaction;
+			}
+
+			$thePost->category_type = $this->model('Category')->getCategory($thePost->category_id)->category_type;
+
+
+			$comments = $this->model('Comment')->getAll($post_id);
+
+			foreach ($comments as $comment) {
+ 							
+				$comment_reactions = $this->model('Comment_Reaction')->getAll($comment->comment_id);
+
+				$comment->reactions = $comment_reactions ;
+
+				foreach ($comment->reactions as $r) {
+					$reaction = $this->model('Reaction_type')->getReaction($r->reaction_type_id)->reaction_description;
+					$r->reaction_description = $reaction;
+				}
+ 			}
+
+ 			$thePost->comments =  $comments;
+
+
+			return $thePost;
+		}
+
+		public function preFunction($object){
+
+		echo "<pre>";
+			var_dump($object);
+		echo "</pre>";
+
+		}
 
 
 

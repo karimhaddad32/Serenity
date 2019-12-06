@@ -15,21 +15,13 @@
 
 			</div>
 			<div class="container">
-					<div class="container">
-						<h1 style="text-align: center"></h1>
-					</div>
-					
-					
-					
 		
 					<?php
 					foreach ($model->posts as $post) 
 					{
 							 $this->view('/Profile/post', $post ); 
 					}
-					?>
-					
-				
+					?>	
 			</div>
 			<div></div>
 		</div>
