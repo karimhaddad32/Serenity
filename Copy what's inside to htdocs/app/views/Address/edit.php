@@ -29,7 +29,7 @@
 			<?php
 				foreach ($model->countries as $country) 
 				{
-					echo "<option salue='$country->country_id'>$country->country_name</option>";
+					echo "<option value='$country->country_id'>$country->country_name</option>";
 				}
 			?>
 		</select>

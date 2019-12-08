@@ -6,15 +6,16 @@
 	<div>
 		<a href= '/Profile/friends_wall' style="margin: 5px" >Friends Feed</a>
 		<a href= '/Profile/wall' style="margin: 5px" >News Feed</a>
+		<a href= '/Profile/subscriptions' style="margin: 5px" >Subscription Feed</a><span style="color:white;"> | </span>
+		<a href= '/Profile/index' style="margin: 5px" >Profile</a>
 		<a href= '/Profile/search_friends' style="margin: 5px" >Friends</a>
-		<a href= '/Profile/index' style="margin: 5px" >View Your Profile</a>
 		<a href= '/Recommendation/index' style="margin: 5px" >Recommendations</a>
   	</div>
 
-  	<div><h4 style="color: blue">Serenity</h4></div>
+  	<div><h4 style="color:#7dc8fa">Serenity</h4></div>
  
   	<div style="float: right;">
-  		<a href= '/Direct_Message/index' style="margin: 5px" >Direct Messages</a> | 
+  		<a href= '/Direct_Message/index' style="margin: 5px" >Direct Messages</a>
   		<a href= '/Chat_Room/index' style="margin: 5px" >Chat Rooms</a>
 		<a href= '/Login/logout' class="btn btn-outline-info my-2 my-sm-0" style="margin: 5px" >Logout</a>
   	</div>

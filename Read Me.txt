@@ -1,5 +1,5 @@
 1- Copy all the files in the folder "Copy what's inside to htdocs" to your htdocs.
-2- Import the SQL file "serenity_db_don't put me in the htdocs" into your local database (xaamp admin)
+2- Import the SQL file "serenity.sql" into your local database (xampp admin)
 3- Do the changes you want to do.
 4- Inform everyone if any changes to the database has been made. If so export it and replace the current one.
 5- Work only on the parts assigned to you. you can navigate to your part by manipulating the URL string.

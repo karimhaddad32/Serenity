@@ -106,6 +106,19 @@ class Post extends Model
         return $stmt->fetchAll(); 
     }
 
+          public function getSubscribedPosts($profile_id) 
+    {
+        $sql = "SELECT * FROM Post WHERE profile_id IN (SELECT receiver_id
+                                                          FROM Friend_Link
+                                                         WHERE sender_id = :sender_id AND relationship = :relationship
+                                                       )
+                                                      ORDER BY timestamp DESC";
+        $stmt = self::$_connection->prepare($sql);
+        $stmt->execute(['sender_id' => $profile_id, 'relationship' => 'Followed' ]);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Post'); 
+        return $stmt->fetchAll(); 
+    }
+
 
 }
 ?>

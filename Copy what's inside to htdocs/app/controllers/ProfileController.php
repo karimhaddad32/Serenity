@@ -224,6 +224,33 @@ class ProfileController extends Controller {
 		}	
 	}
 
+		public function subscriptions() 
+	{
+		$profile_id = $_SESSION['user_id'];
+		$profile = $this->model('Profile');
+		$profile = $profile->find($profile_id);
+
+		if($profile != null)
+		{
+			$_SESSION['profile_id'] = $profile->profile_id;
+
+			$post = $this->model('Post');
+			$post->profile_id = $profile_id;
+			$posts = $post->getSubscribedPosts($profile->profile_id);
+
+			$counter = 0;
+			foreach ($posts  as $p) {
+				$profile->posts[$counter++] = $this->getAllPostsDetails($p->post_id);
+			}
+			return $this->view('Profile/subscriptions', $profile);
+		}
+		else
+		{
+			$_SESSION['profile_id'] = null;
+			header('location:/Profile/create');
+		}	
+	}
+
 	public function create() {
 		if (!isset($_POST['action'])) {
 			$this->view('Profile/create');

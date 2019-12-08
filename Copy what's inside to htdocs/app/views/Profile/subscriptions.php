@@ -1,17 +1,13 @@
 
 <head>
 
-	<title>Friends Feed</title>
+	<title>Subscription Feed</title>
 </head>
 
 		<?php $this->view('/Shared/top_nav_bar_main'); 	 ?>
 <div class="container">
 		
-	<h1  style="text-align: center">Friends Feed</h1>
-
-	<a href ='/post/createStatus' style="padding-left: 10px; padding-right: 10px">Create New Status</a> 
-
-	<a href ='/post/createPrivateBlog' style="padding-left: 10px; padding-right: 10px">Create Private Blog Post</a> 
+	<h1  style="text-align: center">Subscription Feed</h1>
 
 	</div>
 
@@ -25,8 +21,8 @@
 					
 					<?php
 					if (!isset($model->posts)) {
-						echo "<p style=text-align:center;>Your friends have not posted anything yet!</p>
-							  <p style=text-align:center;><a href=/profile/search_friends>Click here</a> to find more people!</p>";
+						echo "<p style=text-align:center;>The people you're subscribed to have not posted anything yet!</p>
+							  <p style=text-align:center;><a href=/profile/search_friends>Click here</a> to get more subscriptions!</p>";
 						return;
 					}
 					foreach ($model->posts as $post) 
